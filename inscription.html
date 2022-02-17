@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Connectez-vous !!</title>
+	<link rel="stylesheet" href="style/inscription.css" />
+</head>
+
+<body>
+	<div id="page">
+		<div id="logo">
+			<img src="src/images/logo_main.png" alt="logo" />
+		</div>
+		<div class="main">
+			<h1>Sign In</h1>
+			<div class="icons">
+				<img src="src/images/discord.png" alt="logo discord">
+				<img src="src/images/google.png" alt="logo facebbok">
+				<img src="src/images/fb.png" alt="logo google">
+			</div>
+			<form action="post">
+				<div id="fields">
+					<div class="nameSurname">
+						<input type="text" required name="firstName" placeholder="First Name" br />
+						<input type="text" required name="lastName" placeholder="Last Name" br />
+					</div>
+					<div class="loginInfo">
+						<input type="email" name="login" placeholder="email" br />
+						<input type="password" name="password" placeholder="Password" br />
+						<input type="password" name="confirmPassword" placeholder="Confirm Password" br />
+					</div>
+					<input type="date" required name="dateOfBirth" placeholder="Date of Birth" br />
+					<div class="genderSelect">
+						<input type="radio" id="male" name="gender" value="male" />
+						<label for="male">Male</label>
+						<input type="radio" id="female" name="gender" value="female" />
+						<label for="female">Female</label>
+						<input type="radio" id="notConsidered" name="gender" value="notConsidered" />
+						<label for="notConsidered">Not Considered</label>
+					</div>
+				</div>
+				<input type="submit" class="btn" id="btn-signin" value="Sign In" />
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
