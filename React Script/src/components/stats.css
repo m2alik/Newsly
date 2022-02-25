@@ -1,0 +1,24 @@
+.stats {
+	border-radius: 10px;
+	background-color: rgb(208, 206, 209);
+	padding: 10px;
+	box-shadow: 7px 7px 25px;
+	margin-bottom: 20px;
+	height: 480px;
+	align-self: flex-start;
+	position: fixed;
+	left: 40px;
+}
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.stats-title,
+.stats-my-infos {
+	text-align: center;
+	width: 100%;
+}
+.stats-my-infos img {
+	width: 50px;
+	border-radius: 50%;
+}

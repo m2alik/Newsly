@@ -1,0 +1,20 @@
+.suggestion {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 3px;
+}
+
+.suggestion-profile-pic {
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.suggestion-follow {
+	color: rgb(45, 180, 83);
+	font-size: small;
+	text-decoration: none;
+}
+.suggestion-username {
+	flex: 1;
+}

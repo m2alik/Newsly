@@ -1,0 +1,13 @@
+.flux {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.flux-status {
+	width: 80%;
+	background-color: blue;
+}
+.flux-textarea {
+	width: 100%;
+}

@@ -1,0 +1,21 @@
+.connected {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 3px;
+}
+
+.connected-profile-pic {
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+.connected-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background-color: green;
+}
+.connected-username {
+	flex: 1;
+}
