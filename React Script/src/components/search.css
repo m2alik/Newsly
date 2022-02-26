@@ -1,15 +1,13 @@
-.listsuggestion {
+.search {
 	border-radius: 10px;
 	background-color: rgba(236, 235, 235, 0.5);
 	padding: 10px;
 	margin-bottom: 20px;
 	width: 100%;
 }
-hr {
-	margin-top: 10px;
-	margin-bottom: 10px;
+.search-fields{
+	display: flex;
 }
-.aside-title {
-	text-align: center;
-	width: 100%;
+.search-fields input[type="text"] {
+	width: 80%;
 }

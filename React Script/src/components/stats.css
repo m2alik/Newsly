@@ -1,8 +1,7 @@
 .stats {
 	border-radius: 10px;
-	background-color: rgb(208, 206, 209);
+	background-color: rgba(236, 235, 235,0.5);
 	padding: 10px;
-	box-shadow: 7px 7px 25px;
 	margin-bottom: 20px;
 	height: 480px;
 	align-self: flex-start;

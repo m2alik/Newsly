@@ -2,9 +2,10 @@
 
 
 import React, { Component } from 'react'
-import pic1 from '../images/Amine YK.png'
+import pic1 from '../images/profilepic1.png'
 import ListConnected from './listconnected';
 import ListSuggestion from './listsuggestion';
+import Search from './search';
 import './aside.css'
 class Aside extends Component {
 
@@ -19,6 +20,7 @@ class Aside extends Component {
         return (
             
             <div className='aside'>
+               <Search />
                <ListConnected connecteds={list} /> 
                <ListSuggestion suggestions={list} />
 
