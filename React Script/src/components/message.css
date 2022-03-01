@@ -4,10 +4,11 @@
 	flex-wrap: none;
 	width: 100%;
 	padding: 5px;
-    border-bottom : solid 2px rgba(236, 235, 235,0.5);
+	border-bottom: solid 2px rgba(236, 235, 235, 0.5);
+	position: relative;
 }
-.message:hover{
-    background-color: rgba(45, 180, 83,0.15);
+.message:hover {
+	background-color: rgba(45, 180, 83, 0.15);
 }
 .message-infos {
 	width: 100%;
@@ -22,6 +23,12 @@
 }
 .message-properties > p {
 	font-size: large;
+}
+.message-properties button {
+	width: 5%;
+	align-self: flex-end;
+	border: none;
+	background-color: inherit;
 }
 .message-properties {
 	display: flex;

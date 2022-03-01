@@ -1,7 +1,23 @@
-.tags{
-    display: flex;
-	width: 100%;
+.tags {
+	display: flex;
+	width: 50%;
+	white-space: nowrap;
+	flex-wrap: nowrap;
+	margin-bottom: 10px;
 }
-.tags-element{
-    padding-right: 5px ;
+.tags-element {
+	padding-right: 5px;
+	border: solid 1px #bbbdbb;
+	border-radius: 15px;
+	margin: 5px;
+	padding: 6px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-align: center;
+
+	cursor: pointer;
+}
+.tags-element:hover {
+	border: solid 1px rgb(45, 180, 83);
+	background-color: rgba(156, 240, 180, 0.7);
 }

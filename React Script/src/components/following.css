@@ -1,0 +1,24 @@
+.following {
+	display: flex;
+	width: 100%;
+	padding: 10px;
+}
+.following:hover {
+	border-radius: 10px;
+	background-color: rgba(236, 235, 235, 0.5);
+}
+.following button {
+	align-self: center;
+	border: solid 1px #bbbdbb;
+	width: 20%;
+	border-radius: 5px;
+	text-align: center;
+	background: inherit;
+	font-size: 0.8em;
+	padding: 9px;
+}
+.following-btn:hover {
+	border: solid 1px #bbbdbb;
+	background-color: rgba(250, 157, 150, 0.9);
+	color: red;
+}

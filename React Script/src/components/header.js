@@ -1,8 +1,6 @@
 
 import React , {Component, useState} from 'react'
-
-
-
+// import './header.css'
 class Header extends Component{
 
 

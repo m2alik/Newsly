@@ -5,11 +5,11 @@
 	width: 100%;
 }
 .flux-messages {
-	width: 80%;
+	width: 100%;
 	margin-top: 20px;
 }
 .flux-status {
-	width: 80%;
+	width: 100%;
 	background-color: rgba(236, 235, 235, 0.5);
 	border-radius: 15px;
 	padding: 7px;
@@ -24,7 +24,7 @@
 }
 .flux-btn-publish {
 	width: 100px;
-	height: 25px;
+	height: 35px;
 	box-shadow: none;
 	border: none;
 	border-radius: 10px;
@@ -33,6 +33,7 @@
 }
 .flux-btn-publish:hover {
 	background-color: rgb(45, 180, 83);
+	border: solid 0.5px #bbbbbb;
 }
 .flux-my-infos {
 	display: flex;
@@ -42,4 +43,54 @@
 	width: 50px;
 	border-radius: 50%;
 	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.flux-my-infos p {
+	font-size: large;
+}
+.flux-header {
+	width: 50%;
+}
+.flux-header ul {
+	list-style-type: none;
+	width: 100%;
+	align-items: center;
+	display: flex;
+	height: 100%;
+}
+
+.flux-header li a {
+	display: block;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	padding: 14px 16px;
+	padding-left: 90px;
+	padding-right: 90px;
+	width: 100%;
+	text-decoration: none;
+	font-size: large;
+}
+
+.flux-header li a:hover {
+	background-color: rgba(236, 235, 235, 0.5);
+	cursor: pointer;
+}
+.flux-header li a:focus {
+	border-bottom: 2px solid rgb(45, 180, 83);
+}
+.containers {
+	width: 80%;
+}
+.home-container {
+	background: white;
+	padding: 20px;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.profile-container {
+	background: white;
+	width: 100%;
+	height: 100%;
+	display: none;
 }

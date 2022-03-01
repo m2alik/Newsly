@@ -10,7 +10,7 @@ class Search extends Component {
         return (
            <div className='search'>
                 <div className='search-fields'>
-                    <div className="search">
+                    <div className='search-infos'>
                         <input type="text" className="input-search" placeholder='search'></input>
                         <button className="btn-search"><i class="fa fa-search"></i></button>
                     </div>

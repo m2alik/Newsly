@@ -1,12 +1,21 @@
 .stats {
 	border-radius: 10px;
-	background-color: rgba(236, 235, 235,0.5);
+	background-color: rgba(236, 235, 235, 0.5);
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 480px;
+	height: 550px;
 	align-self: flex-start;
 	position: fixed;
 	left: 40px;
+	top: 20px;
+}
+.logo {
+	display: flex;
+	justify-content: center;
+	padding: 5px;
+}
+.logo-img {
+	width: 200px;
 }
 hr {
 	margin-top: 10px;

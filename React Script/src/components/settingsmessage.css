@@ -1,0 +1,29 @@
+.settings-container {
+	border-radius: 10px;
+	background-color: rgba(45, 180, 83, 0.3);
+	padding: 10px;
+	margin-bottom: 20px;
+	width: 140px;
+	position: relative;
+	top: 0;
+	right: 0;
+	display: block;
+}
+.delete,
+.update {
+	display: flex;
+	padding: 10px;
+	width: 100%;
+}
+.delete button,
+.update button {
+	margin-left: 10px;
+	margin-right: 10px;
+	border: none;
+	background: inherit;
+}
+.delete:hover,
+.update:hover {
+	background-color: rgba(236, 235, 235, 0.5);
+	border-radius: 10px;
+}
