@@ -3,8 +3,13 @@
 	align-items: center;
 	width: 100%;
 	margin-bottom: 3px;
+	padding: 3px;
+	border-radius: 20px;
+	cursor: pointer;
 }
-
+.suggestion:hover {
+	background-color: rgba(236, 235, 235, 0.8);
+}
 .suggestion-profile-pic {
 	width: 30px;
 	border-radius: 50%;

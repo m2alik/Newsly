@@ -3,7 +3,7 @@ import { Component } from "react";
 import Aside from "./aside";
 import Flux from "./flux";
 import Stats from "./stats";
-import pic from '../images/profilepic1.png'
+import pic from '../images/amine1.JPG'
 import './mainpage.css'
 import Login from "./login";
 class MainPage extends Component{
@@ -35,6 +35,7 @@ class MainPage extends Component{
                     <Stats className='stats' liststats = {listS} username={this.state.username} profilepic={this.state.profilepic} connected={this.state.connected} />
                     <Flux className='flux' listmessages={listM} username={this.state.username} profilepic={this.state.profilepic}/>
                     <Aside className='aside'/>
+                    {/* <Footer /> */}
                 </div>
                  :   <Login />
                       }

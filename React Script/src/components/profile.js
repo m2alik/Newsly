@@ -20,6 +20,16 @@ class Profile extends Component {
     toggletab = (actv)=>{
         this.setState({active:actv})
     }
+    handleProfilePic = (e) =>{
+        const reader = new FileReader();
+        reader.onload = ()=>{
+            // 2 if the  operation is complete , 1 if it loading
+            if(reader.readyState === 2){
+                this.setState({profilepic:reader.result})
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
     
     render() {
         return (
@@ -27,7 +37,9 @@ class Profile extends Component {
             <div className='profile-informations'>
                 <div className='profile-infos'>  
                     <div className='profile-infos-bloc'>
-                        <img src={this.state.profilepic} />
+                        <input type="file" name="image-upload" id="input-img" accept='images/*' onChange={this.handleProfilePic}/>
+                        <label htmlFor='input-img' className='image-input'></label>
+                        <img src={this.state.profilepic} htmlFor='input-img' />
                     </div>
                     <button className='profile-btn-edit'>Edit Profile</button>
                 </div>

@@ -4,11 +4,14 @@ import logo from '../images/2.png'
 import discord from "../images/discord.png"
 import facebook from "../images/fb.png"
 import google from "../images/google.png"
+import FacebookLogin from 'react-facebook-login';
+ 
 
 class Register extends Component {
     constructor(props){
         super(props)
 		this.state={
+			accessToken : "",
 			firstname : "",
 			lastname : "",
 			email : "",
@@ -23,12 +26,30 @@ class Register extends Component {
 	verification = () =>{
 		console.log(this.state.firstname)
 	}
+	// api facebook
+	// responseFacebook = (response) => {
+	// 	this.setState({accessToken : response.accessToken})
+	// 	console.log(response.accessToken);
+	// }
+	  
+	// componentClicked = (data)=>{
+	// 	console.log("data ",data)
+	// }
+	  
 
     render() {
         return (
         <div className='register'>
-	<div className="register-page">
-		<div className="register-content">
+			{/* api facebook */}
+			{/* <FacebookLogin
+    appId="1318622208651278"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={this.componentClicked}
+    callback={this.responseFacebook} /> */}
+
+			<div className="register-page">
+			<div className="register-content">
 			<div className="register-logo">
 				<img className="register-logo-img"src={logo} alt="logo" />
 			</div>

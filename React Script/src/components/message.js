@@ -3,7 +3,6 @@
 
 import React, { Component } from 'react'
 import './message.css'
-import SettingsMessage from './settingsmessage'
 class Message extends Component {
 
 
@@ -17,7 +16,8 @@ class Message extends Component {
             timePublic : this.props.timePublic,
             nblikes : this.props.nblikes,
             nbcomments : this.props.nbcomments,
-            triggerMessage : false
+            triggerMessage : false,
+            nbClick : 0
         }
     }
 
@@ -30,17 +30,17 @@ class Message extends Component {
                 <div className='message-infos'>
                     <img src={this.state.profilepic} />
                     <div className='message-properties'>
-                        <button onClick={() => this.setState({triggerMessage:true})}>
+                        <button onClick={() => this.setState({triggerMessage:true,nbClick : this.state.nbClick + 1})}>
                             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                         </button>
-                        {this.state.triggerMessage === true ?
+                        {(this.state.triggerMessage === true && this.state.nbClick % 2 === 1 ) ?
                 <div className='settings-container'>
                     <div className='delete'>
-                        <button><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                         <p>Delete</p>
                     </div>
                     <div className='update'>
-                        <button><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
                         <p>Update</p>
                     </div>
                 </div>
