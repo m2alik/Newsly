@@ -44,26 +44,26 @@ class Login extends Component {
 	render() {
 		return (
 
-					<div className="login-page">
-						<div className="login-logo">
-							<img className="login-logo-pic" src={logo} alt="logo" />
+			<div className="login-page">
+				<div className="login-logo">
+					<img className="login-logo-pic" src={logo} alt="logo" />
+				</div>
+				<div className="login-main">
+					<h1 className='login-main-title'>Login</h1>
+					<form className="login-form" action="post">
+						<div className="login-fields">
+							<input className=" login-input" type="text" name="login" placeholder="Login" onChange={() => this.updateLogin} />
+							<input className=" login-password" type="password" name="password" placeholder="Password" onChange={() => this.updatePassword} />
 						</div>
-						<div className="login-main">
-							<h1 className='login-main-title'>Login</h1>
-							<form className="login-form" action="post">
-								<div className="login-fields">
-									<input className=" login-input" type="text" name="login" placeholder="Login" onChange={() => this.updateLogin} />
-									<input className=" login-password" type="password" name="password" placeholder="Password" onChange={() => this.updatePassword} />
-								</div>
-								<a className="mdp-oublie" href="mdp_oublie.html">Forgot Password ?</a>
-								<input className=" login-submit-login" type="submit" value="Log In" onClick={() => this.sendLoginRequest} />
-							</form>
-							<hr width=" 80%" />
-							<div className="login-register-div">
-								<button className="login-btn-register" onClick={() => this.props.setPage(<Register setPage={this.props.setPage} />)}>Create an account</button>
-							</div>
-						</div>
+						<a className="mdp-oublie" href="mdp_oublie.html">Forgot Password ?</a>
+						<input className=" login-submit-login" type="submit" value="Log In" onClick={() => this.sendLoginRequest} />
+					</form>
+					<hr width=" 80%" />
+					<div className="login-register-div">
+						<button className="login-btn-register" onClick={() => this.props.setPage(<Register setPage={this.props.setPage} />)}>Create an account</button>
 					</div>
+				</div>
+			</div>
 
 		)
 	}

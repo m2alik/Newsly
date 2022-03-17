@@ -9,7 +9,8 @@ class Follower extends Component {
 		super(props)
 		this.state = {
 			username: this.props.username,
-			profilepic: this.props.profilepic
+			profilepic: this.props.profilepic,
+			currentToken: ''
 		}
 	}
 
@@ -20,7 +21,9 @@ class Follower extends Component {
 					<img src={this.state.profilepic} />
 					<p>{this.state.username}</p>
 				</div>
-				<button className='follower-btn'>Remove</button>
+				{this.state.currentToken &&
+					<button className='follower-btn'>Remove</button>
+				}
 			</div>
 		)
 	}

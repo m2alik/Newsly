@@ -10,7 +10,8 @@ class Following extends Component {
 		this.state = {
 			title: "Following",
 			username: this.props.username,
-			profilepic: this.props.profilepic
+			profilepic: this.props.profilepic,
+			currentToken: ''
 		}
 	}
 
@@ -25,7 +26,10 @@ class Following extends Component {
 					<img src={this.state.profilepic} />
 					<p>{this.state.username}</p>
 				</div>
-				<button className='following-btn' onMouseEnter={() => this.changeLabel("Unfollow")} onMouseLeave={() => this.changeLabel("Following")}>{this.state.title}</button>
+				{this.state.currentToken &&
+					<button className='following-btn' onMouseEnter={() => this.changeLabel("Unfollow")} onMouseLeave={() => this.changeLabel("Following")}>{this.state.title}</button>
+
+				}
 			</div>
 		)
 	}

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import LeftAside from "./LeftAside/leftaside";
 import RightAside from "./RightAside/rightaside";
 import Home from "./Containers/home";
@@ -8,32 +8,32 @@ class MainPage extends Component {
 		super(props);
 		this.state = {
 			setPage: props.setPage,
-			container : null
+			container: null
 		}
 
 	}
 
-	setContainer=(newContainer)=>{
-		this.setState({container:newContainer})
+	setContainer = (newContainer) => {
+		this.setState({ container: newContainer })
 	}
 
-	componentDidMount(){
-		this.setContainer(<Home />)
+	componentDidMount() {
+		this.setContainer(<Home setContainer={this.setContainer} />)
 	}
 
 
 	render() {
 		return (
 			<div className="rootpage">
-						<LeftAside setContainer={this.setContainer} setPage={this.state.setPage}/>
-						<div className="middlecontainer">
-							{/* <div className="middlecontainer-header">
+				<LeftAside setContainer={this.setContainer} setPage={this.state.setPage} />
+				<div className="middlecontainer">
+					{/* <div className="middlecontainer-header">
 								<p>Home</p>
 							</div> */}
-							{this.state.container}
-						</div>
-						<RightAside setContainer={this.setContainer} setPage={this.state.setPage}/>
-				
+					{this.state.container}
+				</div>
+				<RightAside setContainer={this.setContainer} setPage={this.state.setPage} />
+
 			</div>
 		)
 	}

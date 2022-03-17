@@ -14,8 +14,8 @@ class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			setContainer: props.setContainer,
-			btnState: ''
+			btnState: '',
+			currentToken: 'a'
 		}
 	}
 
@@ -26,22 +26,25 @@ class Home extends Component {
 	render() {
 		return (
 			<>
-				<div className='home-status'>
-					<div className='home-my-infos'>
-						<img src={pic} />
-						<p>{user.username}</p>
+				{this.state.currentToken &&
+
+					<div className='home-status'>
+						<div className='home-my-infos'>
+							<img src={pic} />
+							<p>{user.username}</p>
+						</div>
+						<textarea className='home-textarea' rows="7" placeholder=" what's the news" onKeyDown={(event) => this.handleBtnState(event)}></textarea>
+						<div className='tags'>
+							{tagsList.map((tag) =>
+								<p className='tags-element' >#{tag}</p>
+							)}
+						</div>
+						<button disabled={this.state.btnState === ""} className='home-btn-publish'>Publish</button>
 					</div>
-					<textarea className='home-textarea' rows="7" placeholder=" what's the news" onKeyDown={(event) => this.handleBtnState(event)}></textarea>
-					<div className='tags'>
-						{tagsList.map((tag) =>
-							<p className='tags-element' >#{tag}</p>
-						)}
-					</div>
-					<button disabled={this.state.btnState === ""} className='home-btn-publish'>Publish</button>
-				</div>
+				}
 				<div className='home-messages'>
 					{listM.map((mess) =>
-						<Message author={mess.author} profilepic={mess.profilepic} value={mess.value} datePubli={mess.datePubli} timePublic={mess.timePublic} nblikes={mess.nblikes} nbcomments={mess.nbcomments} />
+						<Message author={mess.author} profilepic={mess.profilepic} value={mess.value} datePubli={mess.datePubli} timePublic={mess.timePublic} nblikes={mess.nblikes} nbcomments={mess.nbcomments} setContainer={this.props.setContainer} />
 					)}
 				</div>
 			</>

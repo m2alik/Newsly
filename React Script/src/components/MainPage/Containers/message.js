@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react'
 import '../../../styles/message.css'
-
+import Profile from '../Containers/profile'
 
 
 
@@ -21,7 +21,8 @@ class Message extends Component {
 			nblikes: this.props.nblikes,
 			nbcomments: this.props.nbcomments,
 			triggerMessage: false,
-			nbClick: 0
+			nbClick: 0,
+			currentToken: ''
 		}
 	}
 
@@ -32,31 +33,34 @@ class Message extends Component {
 			<div className='message'>
 
 				<div className='message-infos'>
-					<img src={this.state.profilepic} />
+					<img src={this.state.profilepic} onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} />)} />
 					<div className='message-properties'>
-						<p>{this.state.author}</p>
+						<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} />)}>{this.state.author}</p>
 						<div className='message-horaire'>
 							<p>{this.state.datePubli}</p>
 							<p>-{this.state.timePublic}</p>
 						</div>
 
 					</div>
-					
+					{this.state.currentToken &&
+
 						<button onClick={() => this.setState({ triggerMessage: true, nbClick: this.state.nbClick + 1 })}>
 							<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
 						</button>
-						{(this.state.triggerMessage === true && this.state.nbClick % 2 === 1) ?
-							<div className='settings-container'>
-								<div className='delete'>
-									<i class="fa fa-trash-o" aria-hidden="true"></i>
-									<p>Delete</p>
-								</div>
-								<div className='update'>
-									<i class="fa fa-pencil" aria-hidden="true"></i>
-									<p>Update</p>
-								</div>
+					}
+					{(this.state.triggerMessage === true && this.state.nbClick % 2 === 1) ?
+						<div className='settings-container'>
+							<div className='delete'>
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+								<p>Delete</p>
 							</div>
-							: ""}
+							<div className='update'>
+								<i class="fa fa-pencil" aria-hidden="true"></i>
+								<p>Update</p>
+							</div>
+						</div>
+						: ""}
+
 
 				</div>
 
@@ -89,7 +93,7 @@ class Message extends Component {
 						</button>
 					</div>
 				</div>
-			</div>
+			</div >
 
 		)
 	}

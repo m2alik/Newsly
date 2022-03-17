@@ -15,14 +15,12 @@ class Profile extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			setContainer: props.setContainer,
 			profContainer: null
 		}
-		this.setProfContainer.bind(this.setProfContainer)
 	}
 
 	componentDidMount() {
-		this.setProfContainer(<Messages />)
+		this.setProfContainer(<Messages setContainer={this.props.setContainer} />)
 	}
 
 	setProfContainer = (container) => {
@@ -69,13 +67,13 @@ class Profile extends Component {
 				<div className='profile-header'>
 					<ul>
 						<li >
-							<p onClick={() => this.setProfContainer(<Messages />)} >Messages</p>
+							<p onClick={() => this.setProfContainer(<Messages setContainer={this.props.setContainer} />)} >Messages</p>
 						</li>
 						<li>
-							<p onClick={() => this.setProfContainer(<Followers />)}>Followers</p>
+							<p onClick={() => this.setProfContainer(<Followers setContainer={this.props.setContainer} />)}>Followers</p>
 						</li>
 						<li>
-							<p onClick={() => this.setProfContainer(<Followings />)}>Following</p>
+							<p onClick={() => this.setProfContainer(<Followings setContainer={this.props.setContainer} />)}>Following</p>
 						</li>
 					</ul>
 				</div>

@@ -17,7 +17,7 @@ class Messages extends Component {
 		return (
 			<div>
 				{messages.map((mess) =>
-					<Message author={mess.author} profilepic={mess.profilepic} value={mess.value} datePubli={mess.datePubli} timePublic={mess.timePublic} nblikes={mess.nblikes} nbcomments={mess.nbcomments} />
+					<Message author={mess.author} profilepic={mess.profilepic} value={mess.value} datePubli={mess.datePubli} timePublic={mess.timePublic} nblikes={mess.nblikes} nbcomments={mess.nbcomments} setContainer={this.props.setContainer} />
 				)}
 			</div>
 		)

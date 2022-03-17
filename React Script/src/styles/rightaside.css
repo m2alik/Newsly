@@ -1,14 +1,13 @@
 .rightaside {
 	position: fixed;
-	right :0;
-	top : 0;
+	right: 0;
+	top: 0;
 	margin-right: 3%;
 }
 .footer {
 	height: 50px;
 	position: fixed;
-	top: 550px;
-	width: 100%;
+	top: 600px;
 }
 .footer p,
 a {
@@ -19,4 +18,3 @@ a {
 	text-decoration: none;
 	padding: 5px;
 }
-

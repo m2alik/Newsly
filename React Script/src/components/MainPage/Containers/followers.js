@@ -17,7 +17,7 @@ class Followers extends Component {
 		return (
 			<div>
 				{followers.map((mess) =>
-					<Follower username={mess.username} profilepic={mess.profilepic} />
+					<Follower username={mess.username} profilepic={mess.profilepic} setContainer={this.props.setContainer} />
 				)}
 			</div>
 		)
