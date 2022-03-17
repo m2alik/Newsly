@@ -6,29 +6,29 @@ import Profile from './profile';
 
 class Flux extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            container : null,
-            btnState : ''
-        }
-        this.setContainer.bind(this.setContainer)
-    }
+	constructor(props) {
+		super(props)
+		this.state = {
+			container: null,
+			btnState: ''
+		}
+		this.setContainer.bind(this.setContainer)
+	}
 
-    componentDidMount(){
-        this.setContainer(<Home setContainer={this.setContainer}/>) 
-    }
+	componentDidMount() {
+		this.setContainer(<Home setContainer={this.setContainer} />)
+	}
 
-    setContainer = (newContainer) =>{
-        this.setState({container:newContainer})
-    }
+	setContainer = (newContainer) => {
+		this.setState({ container: newContainer })
+	}
 
 
-   
-    render() {    
-        return (
-            <div className='flux'>
-                {/* <div className='flux-header'>
+
+	render() {
+		return (
+			<div className='flux'>
+				{/* <div className='flux-header'>
                     <ul>
                         <li >
                             <p onClick={() => this.setContainer(<Home setContainer={this.state.setContainer}/>)} >Home</p>
@@ -39,17 +39,17 @@ class Flux extends Component {
                     </ul>
                 </div> */}
 
-                
-                {this.state.container}
-                
 
-                {/* <div className={this.state.active === "profile" ? 'profile-container-active' : 'profile-container'}>
+				{this.state.container}
+
+
+				{/* <div className={this.state.active === "profile" ? 'profile-container-active' : 'profile-container'}>
                         <Profile username={user.username} profilepic={pic} messages={mesMessages} followers={mesFollowers} following={mesFollowing}/>
                 </div> */}
 
-            </div>
-            
-        )
-    }
+			</div>
+
+		)
+	}
 }
 export default Flux; 
