@@ -4,15 +4,35 @@ import Header from './components/header';
 import profilepic from './images/amine1.JPG';
 import logo from './images/logoHeader.png';
 import MainPage from './components/mainpage';
+import { Component } from "react";
 
 
-function App() {
+
+class App extends Component {
+
+
+  constructor(props){
+    super(props)
+    this.state= {
+      page : null
+    }
+    this.setPage = this.setPage.bind(this)
+  }
+  componentDidMount(){
+    this.setPage(<MainPage setPage = {this.setPage}/>)
+  }
+
+  setPage = (nouvellePage) =>{
+    this.setState({page:nouvellePage})
+  }
+
+  render (){
   return (
     <div className="App">
-      {/* <Header username="Amine YK" profilepic={profilepic} logo={logo} /> */}
-      <MainPage username ="Amine YK" profilepic={profilepic} logo={logo} />
+        {this.state.page}
     </div>
   );
+}
 }
 
 export default App;

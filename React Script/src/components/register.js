@@ -4,12 +4,14 @@ import logo from '../images/2.png'
 import discord from "../images/discord.png"
 import facebook from "../images/fb.png"
 import google from "../images/google.png"
+import Login from './login'
 import FacebookLogin from 'react-facebook-login';
+import axios from 'axios'
  
 
 class Register extends Component {
-    constructor(props){
-        super(props)
+	constructor(props){
+		super(props)
 		this.state={
 			accessToken : "",
 			firstname : "",
@@ -18,28 +20,45 @@ class Register extends Component {
 			password : "",
 			confirmpassword : "",
 			day : "" ,
-			month :  ""
+			month :  "",
+			error : "",
+			errorMessage : "",
+			setPage : props.setPage
 		}
     }
-
-
-	verification = () =>{
-		console.log(this.state.firstname)
+	api = axios.create({
+		baseURL : "http://technoweb.lip6.fr:4443",
+		timeout : 1000, 
+	})
+	
+	
+	sendUser = () =>{
+		this.props.setPage(<Login setPage = {this.props.setPage}/>)
+		this.api.post('/api/user',{params : {login:this.state.email , password:this.state.password , confirmpassword:this.state.confirmpassword , firstname:this.state.firstname , lastname:this.state.lastname} , data : {}}).then(
+			(response) =>{
+				console.log(response.data)
+				if (response.data["status"] === "error"){
+					this.setState({error : response.data["status"]})
+					this.setState({errorMessage : response.data["texterror"]})
+					console.log("error ! ")
+				}
+			}
+		)
 	}
 	// api facebook
 	// responseFacebook = (response) => {
 	// 	this.setState({accessToken : response.accessToken})
 	// 	console.log(response.accessToken);
 	// }
-	  
+	
 	// componentClicked = (data)=>{
-	// 	console.log("data ",data)
-	// }
-	  
-
-    render() {
-        return (
-        <div className='register'>
+		// 	console.log("data ",data)
+		// }
+		
+		
+		render() {
+			return (
+				<div className='register'>
 			{/* api facebook */}
 			{/* <FacebookLogin
     appId="1318622208651278"
@@ -67,11 +86,11 @@ class Register extends Component {
 					</a>
 				</div>
 				<hr width="80%" color="grey" />
-				<form className="register-htmlForm"action="post">
+				{/* <form className="register-htmlForm"> */}
 					<div className="register-fields">
 						<div className="register-nameSurname">
-							<input className="register-id" type="text" required name="firstName" placeholder="First Name" br />
-							<input className="register-id" type="text" required name="lastName" placeholder="Last Name" br />
+							<input className="register-id" type="text" required name="firstName" placeholder="First Name" onChange={(e) => this.setState({firstname : e.target.value})}  />
+							<input className="register-id" type="text" required name="lastName" placeholder="Last Name" onChange={(e) => this.setState({lastname : e.target.value})}/>
 						</div>
 						<div className="register-genderSelect">
 							<p className='register-p'>Gender</p>
@@ -259,14 +278,13 @@ class Register extends Component {
 							</select>
 						</div>
 						<div className="register-loginInfos">
-							<input className="register-loginInfo" type="email" name="login" placeholder="email" br />
-							<input className="register-loginInfo" type="password" name="password" placeholder="Password" br />
-							<input className="register-loginInfo" type="password" name="confirmPassword"
-								placeholder="Confirm Password" br />
+							<input className="register-loginInfo" type="email" name="login" placeholder="email" onChange={(e) => this.setState({email : e.target.value})}  />
+							<input className="register-loginInfo" type="password" name="password" placeholder="Password" onChange={(e) => this.setState({password : e.target.value})}  />
+							<input className="register-loginInfo" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={(e) => this.setState({confirmpassword : e.target.value})}  />
 						</div>
 					</div>
-					<input type="submit" className="register-btn-signin" value="Sign In" onClick={() => this.verification()}/>
-				</form>
+					<button  className="register-btn-signin"  onClick={() => this.sendUser()}>Sign In </button>
+				{/* </form> */}
 			</div>
 		</div>
 	</div>

@@ -3,3 +3,17 @@
 	flex-direction: column;
 	align-items: center;
 }
+.footer {
+	height: 50px;
+	position: fixed;
+	top: 550px;
+}
+.footer p,
+a {
+	font-size: smaller;
+	color: #757575;
+}
+.footer a {
+	text-decoration: none;
+	padding: 5px;
+}

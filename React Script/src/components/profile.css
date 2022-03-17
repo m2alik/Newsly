@@ -1,5 +1,9 @@
+.profile {
+	width: 100%;
+}
+
 .profile-header {
-	width: 80%;
+	width: 100%;
 }
 
 .profile-header ul {
@@ -7,7 +11,11 @@
 	width: 100%;
 	align-items: center;
 	display: flex;
+	justify-content: center;
 	height: 100%;
+}
+.profile-header li {
+	width: 100%;
 }
 
 .profile-header li p {
@@ -15,8 +23,6 @@
 	color: rgb(0, 0, 0);
 	text-align: center;
 	padding: 14px 16px;
-	padding-left: 70px;
-	padding-right: 70px;
 	width: 100%;
 	font-size: large;
 }
@@ -80,9 +86,9 @@
 
 .profile-infos-bloc img {
 	text-align: center;
-	width: 30%;
+	width: 20%;
 	margin-bottom: 10px;
-	height: 150px;
+	height: 120px;
 	object-fit: cover;
 	border-radius: 50%;
 }
@@ -92,10 +98,10 @@
 .profile-infos-bloc label {
 	cursor: pointer;
 	position: absolute;
-	left: 33%;
-	top: 24%;
+	left: 27%;
+	top: 12%;
 	transform: translate(-50%, -50%);
-	height: 27%;
+	height: 22%;
 	width: 11%;
 }
 
@@ -104,9 +110,8 @@
 	align-self: flex-start;
 }
 .profile-informations {
-	border-radius: 10px;
 	background-color: rgba(236, 235, 235, 0.5);
-	padding: 10px;
+	padding: 15px;
 	margin-bottom: 20px;
 	width: 100%;
 }

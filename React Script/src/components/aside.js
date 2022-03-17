@@ -21,8 +21,14 @@ class Aside extends Component {
             
             <div className='aside'>
                <Search />
-               <ListConnected connecteds={list} /> 
+               {/* <ListConnected connecteds={list} />  */}
                <ListSuggestion suggestions={list} />
+               <div className='footer'>
+                    <a href="#">Privacy</a>
+                    <a href="#">Contacts</a>
+                    <a href="#">Devloppers</a>
+                    <p>© 2022 Amine YK - Malik DF , SU</p>
+               </div>
 
             </div>
         )

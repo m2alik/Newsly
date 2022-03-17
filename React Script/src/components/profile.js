@@ -1,25 +1,35 @@
 import React, { Component } from 'react'
 import './profile.css'
-import Message from './message'
-import Follower from './follower'
-import Following from './following'
+import Messages from './messages'
+import Followers from './followers'
+import Followings from './followings'
+import pic from '../images/Amine YK.png'
+
+
+const user = {firstname:"Doufene",lastname:"malik",username:"Malik DF"}
+        
+
 class Profile extends Component {
     
     constructor(props){
         super(props)
         this.state = {
-            active : "messages",
-            username : this.props.username,
-            profilepic : this.props.profilepic,
-            messages : this.props.messages,
-            followers : this.props.followers,
-            following : this.props.following
+            setContainer : props.setContainer,
+            profContainer : null
         }
+        this.setProfContainer.bind(this.setProfContainer)
     }
 
-    toggletab = (actv)=>{
-        this.setState({active:actv})
+    componentDidMount(){
+        this.setProfContainer(<Messages/>)
     }
+
+    setProfContainer = (container) =>{
+        this.setState({profContainer:container})
+    }
+
+
+
     handleProfilePic = (e) =>{
         const reader = new FileReader();
         reader.onload = ()=>{
@@ -39,12 +49,12 @@ class Profile extends Component {
                     <div className='profile-infos-bloc'>
                         <input type="file" name="image-upload" id="input-img" accept='images/*' onChange={this.handleProfilePic}/>
                         <label htmlFor='input-img' className='image-input'></label>
-                        <img src={this.state.profilepic} htmlFor='input-img' />
+                        <img src={pic} htmlFor='input-img' />
                     </div>
                     <button className='profile-btn-edit'>Edit Profile</button>
                 </div>
                 <div className='profile-stats'>
-                    <p className='profile-stats-name'>{this.state.username}</p>
+                    <p className='profile-stats-name'>{user.username}</p>
                     <div className='profile-stats-followers'>
                         <p className='profile-stats-followers-value'>123</p>
                         <p className='profile-stats-followers-title'>Followers</p>
@@ -55,37 +65,23 @@ class Profile extends Component {
                     </div>
                 </div>
             </div>
-                <div className='profile-header'>
+                 <div className='profile-header'>
                     <ul>
                         <li >
-                            <p onClick={() => this.toggletab("messages")} >Messages</p>
+                            <p onClick={() => this.setProfContainer(<Messages />)} >Messages</p>
                         </li>
                         <li>
-                            <p onClick={() => this.toggletab("followers")}>Followers</p>
+                            <p onClick={() => this.setProfContainer(<Followers />)}>Followers</p>
                         </li>
                         <li>
-                            <p onClick={() => this.toggletab("following")}>Following</p>
+                            <p onClick={() => this.setProfContainer(<Followings />)}>Following</p>
                         </li>
                     </ul>
-                </div>
-                <div className='profile-containers'>
-                    <div className= {this.state.active === "messages" ? 'messages-container-active' : 'messages-container'}>
-                        {this.state.messages.map((mess)=>
-                            <Message author={mess.author} profilepic={mess.profilepic} value={mess.value} datePubli={mess.datePubli}  timePublic={mess.timePublic} nblikes={mess.nblikes} nbcomments={mess.nbcomments}/>
-                        )}
-                    </div>
-                    <div className= {this.state.active === "followers" ? 'followers-container-active' : 'followers-container'}>
-                        {this.state.followers.map((foll)=>
-                            <Follower username={foll.username} profilepic={foll.profilepic} />
-                        )}
-                    </div>
-                    <div className= {this.state.active === "following" ? 'following-container-active' : 'following-container'}>
-                    {this.state.following.map((foll)=>
-                            <Following username={foll.username} profilepic={foll.profilepic} />
-                        )}
-                    </div>
-                </div>
+                </div> 
+                
+                {this.state.profContainer}
             </div>
+
 
         )
     }
