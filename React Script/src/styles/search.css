@@ -1,0 +1,53 @@
+.search {
+}
+.search-infos {
+	display: flex;
+	flex-direction: row;
+}
+
+.search-fields {
+	padding: 4px;
+	width: 100%;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.bloc-search-check {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding-left: 4px;
+}
+
+.input-search {
+	padding: 8px;
+	border :solid 1.4px ;
+	border-radius: 20px;
+	width: 100%;
+	outline: none;
+}
+.input-search:focus {
+	outline: none;
+	border-color: rgb(45, 180, 83);
+}
+.search-infos i {
+	background: inherit;
+	align-self: center;
+	position: absolute;
+	top : 4.5%;
+	right : 5%;
+}
+.check-search {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	margin: 5px;
+	border-radius: 4px;
+	height: 15px;
+	width: 15px;
+	border: 1px solid #ccc;
+}
+input[type="checkbox"]:checked {
+	background: rgb(45, 180, 83);
+}

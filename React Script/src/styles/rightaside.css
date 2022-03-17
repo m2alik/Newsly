@@ -1,0 +1,22 @@
+.rightaside {
+	position: fixed;
+	right :0;
+	top : 0;
+	margin-right: 3%;
+}
+.footer {
+	height: 50px;
+	position: fixed;
+	top: 550px;
+	width: 100%;
+}
+.footer p,
+a {
+	font-size: smaller;
+	color: #757575;
+}
+.footer a {
+	text-decoration: none;
+	padding: 5px;
+}
+

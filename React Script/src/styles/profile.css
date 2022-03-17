@@ -1,0 +1,109 @@
+.profile-informations {
+	background-color: rgba(236, 235, 235, 0.5);
+	padding: 15px;
+	margin-bottom: 20px;
+	width: 100%;
+}
+.profile-header ul {
+	list-style-type: none;
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
+.profile-header li {
+	width: 100%;
+}
+
+.profile-header li p {
+	display: block;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	padding: 14px 16px;
+	width: 100%;
+	font-size: large;
+}
+
+.profile-header li p:hover {
+	background-color: rgba(236, 235, 235, 0.5);
+	cursor: pointer;
+}
+.profile-header li p:focus {
+	border: solid 1px #2db453;
+	background-color: blue;
+}
+.profile-infos {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.profile-infos button {
+	width: 20%;
+	height: 25px;
+	margin-top: 3px;
+	font-size: 0.8em;
+	border: solid 1px #bbbdbb;
+	border-radius: 10px;
+	justify-content: center;
+	align-self: flex-start;
+}
+.profile-infos button:hover {
+	border: solid 1px #2db453;
+}
+.profile-infos-bloc {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	overflow: hidden;
+}
+.profile-stats {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.profile-stats-followers,
+.profile-stats-following,
+.profile-stats-name {
+	display: flex;
+	margin-left: 15px;
+	text-align: center;
+}
+.profile-stats-following-title,
+.profile-stats-followers-title {
+	font-size: large;
+	color: rgba(0, 0, 0, 0.7);
+}
+.profile-stats-following-value,
+.profile-stats-followers-value {
+	font-size: large;
+	color: #2db453;
+	padding-right: 2px;
+}
+
+.profile-infos-bloc img {
+	text-align: center;
+	width: 20%;
+	margin-bottom: 10px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+.profile-infos-bloc input[type="file"] {
+	display: none;
+}
+.profile-infos-bloc label {
+	cursor: pointer;
+	position: absolute;
+	left: 27%;
+	top: 12%;
+	transform: translate(-50%, -50%);
+	height: 22%;
+	width: 11%;
+}
+
+.profile-infos-bloc p {
+	width: 35%;
+	align-self: flex-start;
+}

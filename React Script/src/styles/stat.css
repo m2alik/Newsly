@@ -1,0 +1,11 @@
+.stat-value {
+	color: rgb(45, 180, 83);
+	flex: 1;
+}
+.stat {
+	display: flex;
+	justify-content: center;
+	padding: 3px;
+	cursor: pointer;
+}
+

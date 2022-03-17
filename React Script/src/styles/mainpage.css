@@ -1,0 +1,24 @@
+.rootpage {
+	width: 100%;
+	background: white;
+}
+.leftaside {
+	width: 20%;
+	border: none;
+}
+.middlecontainer {
+	margin-right: 20%;
+	width:55%;
+	margin-left: 20%;
+}
+.rightaside {
+	width: 20%;
+}
+/* .middlecontainer-header{
+	background: rgb(160, 54, 54);
+	font-size: larger;
+	border-bottom: solid 1px;
+	padding: 10px;
+	position: sticky;
+	top: 0;
+} */
