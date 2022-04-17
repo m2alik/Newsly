@@ -1,9 +1,13 @@
 
-
-
 import React, { Component } from 'react'
 import '../../../styles/message.css'
 import Profile from '../Containers/profile'
+import Comment from './comment';
+import CompletMessage from './completmessage';
+import { ImagePicker } from "react-file-picker";
+
+import axios from 'axios'
+
 
 
 
@@ -12,54 +16,138 @@ class Message extends Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {
-			author: this.props.author,
-			profilepic: this.props.profilepic,
-			value: this.props.value,
-			datePubli: this.props.datePubli,
-			timePublic: this.props.timePublic,
-			nblikes: this.props.nblikes,
-			nbcomments: this.props.nbcomments,
-			triggerMessage: false,
-			nbClick: 0,
-			currentToken: ''
-		}
+			this.state = {
+				author:this.props.id,
+				profilepic: this.props.profilepic,
+				value: this.props.value,
+				datePubli: this.props.datePubli,
+				timePublic: this.props.timePublic,
+				nblikes: this.props.nblikes,
+				nbcomments: this.props.nbcomments,
+				currentToken: '',
+				btnComment : false,
+				id : this.props.id,
+				errorMessage : "",
+				ifMyMessage:""
+			}
+			// this.props.getAllMessages = this.props.getAllMessages.bind(this)
+		// })
 	}
+
+
+	
+	api = axios.create({
+		baseURL: "http://localhost:4000",
+		timeout: 1000
+	})
+
+	maj_returnMessage = ()=>{
+		this.setState({errorMessage:""})
+	}
+
+
+	insertLikeMessage = (id_message,id_liker) =>{
+		if(id_liker === null){
+			this.setState({errorMessage:"You have to login"})
+			setTimeout(() => {
+				this.maj_returnMessage();
+			  }, 3000);
+		}else{
+		var url = "api/messages/likes"
+		this.api.post(url,{id_message,id_liker}).then((response)=>{
+			console.log(response.data)
+			this.setState({nblikes:response.data.nb_likes})
+		})
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+}
+
+
+	getAuthor = async(id_author)=>{
+		return new Promise((resolve,reject)=>{
+			var url = "/api/user/"+id_author
+			this.api.get(url).then(
+				(response) => {
+					resolve(response.data.login)
+				}
+			)
+			.catch((err)=>{
+				reject(err.response)
+			})
+		})
+	}
+
+
+	componentDidUpdate(){
+		this.getAuthor(this.props.author).then((aut)=>{
+			this.setState({author:aut})
+		})
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+	componentDidMount(){
+		this.setState({nblikes:this.props.nblikes})
+		this.getAuthor(this.props.author).then((aut)=>{
+			this.setState({author:aut})
+		})
+		.catch((err)=>{
+			console.log(err)
+		})
+		this.checkIfMyMessage()
+	}
+
+
+	deleteMessage = () =>{
+		const url = "/api/user/messages/"+this.props.id
+		this.api.delete(url).then((response)=>{
+			console.log(response.data)
+			this.props.getAllMessages()
+		})
+		.catch((err)=>{
+			console.log(err.response.data)
+		})
+	}
+
+	checkIfMyMessage = () =>{
+		const url = "/api/messages/"+this.props.id
+		this.api.get(url).then((response)=>{
+			if(response.data.message.id_author === parseInt(sessionStorage.getItem("id_user"))){
+				this.setState({ifMyMessage:"it's_mine"})
+			}
+		}) 
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+	
 
 
 
 	render() {
 		return (
-			<div className='message'>
 
-				<div className='message-infos'>
+			<div className='message' >
+
+				{this.state.errorMessage ? <h3 className='error-message'>{this.state.errorMessage}</h3> : ""}
+				<div className='message-infos'>	
 					<img src={this.state.profilepic} onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} />)} />
 					<div className='message-properties'>
 						<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} />)}>{this.state.author}</p>
 						<div className='message-horaire'>
-							<p>{this.state.datePubli}</p>
-							<p>-{this.state.timePublic}</p>
+							<p>{this.state.datePubli} on {this.state.timePublic}</p>
 						</div>
 
 					</div>
-					{this.state.currentToken &&
+					{this.state.ifMyMessage !== "" ?
 
-						<button onClick={() => this.setState({ triggerMessage: true, nbClick: this.state.nbClick + 1 })}>
-							<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+						<button onClick={() => this.deleteMessage()}>
+							<i className="fa fa-trash-o fa-2x" aria-hidden="true"></i>
 						</button>
+						: ""
 					}
-					{(this.state.triggerMessage === true && this.state.nbClick % 2 === 1) ?
-						<div className='settings-container'>
-							<div className='delete'>
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
-								<p>Delete</p>
-							</div>
-							<div className='update'>
-								<i class="fa fa-pencil" aria-hidden="true"></i>
-								<p>Update</p>
-							</div>
-						</div>
-						: ""}
 
 
 				</div>
@@ -68,35 +156,54 @@ class Message extends Component {
 
 
 
-				<div className='message-contenu'>
-					<p>{this.state.value}</p>
+				<div className='message-contenu' onClick={(event) => this.props.setContainer(<CompletMessage id={this.state.id} id_user={this.props.id_user}/>)}>
+					<p>{this.props.value}</p>
+					<img className='message-contenu-image' src={this.props.image}/>
 				</div>
 				<div className='message-footer'>
-					<div className='message-likes'>
+					<div className='message-likes' onClick={()=>this.insertLikeMessage(this.props.id,this.props.id_user)}>
 						<button className='message-footer-btn'>
-							<i class="fa fa-heart-o fa-2x"></i>
+							<i className="fa fa-heart-o fa-2x"></i>
 						</button>
 						<p>{this.state.nblikes}</p>
 					</div>
 					<div className='message-comments'>
-						<button className='message-footer-btn'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-							<path d="M8.2881437,19.1950792 C8.38869181,19.1783212 8.49195996,19.1926955 8.58410926,19.2362761 C9.64260561,19.7368747 10.8021412,20 12,20 C16.418278,20 20,16.418278 20,12 C20,7.581722 16.418278,4 12,4 C7.581722,4 4,7.581722 4,12 C4,13.7069096 4.53528582,15.3318588 5.51454846,16.6849571 C5.62010923,16.830816 5.63909672,17.022166 5.5642591,17.1859256 L4.34581002,19.8521348 L8.2881437,19.1950792 Z M3.58219949,20.993197 C3.18698783,21.0590656 2.87870208,20.6565881 3.04523765,20.2921751 L4.53592782,17.0302482 C3.54143337,15.5576047 3,13.818993 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 C10.707529,21 9.4528641,20.727055 8.30053434,20.2068078 L3.58219949,20.993197 Z" />
-						</svg></button>
+						<button className='message-footer-btn' onClick={() => this.setState({btnComment:!this.state.btnComment})}>
+						<i className="fa fa-commenting-o fa-2x" aria-hidden="true"></i>
+						</button>
 						<p>{this.state.nbcomments}</p>
 					</div>
 					<div className='message-republish'>
-						<button className='message-footer-btn'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-							<g fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<path d="M10 6 L3 14 10 22 M3 14 L18 14 C26 14 30 18 30 26" />
-							</g>
-						</svg>
+						<button className='message-footer-btn'><i className="fa fa-retweet fa-2x" aria-hidden="true"></i>
 						</button>
 					</div>
 				</div>
+				
+					{
+						this.state.btnComment  &&
+						<>
+						{this.props.listComments.map((comment) =>
+						<Comment profilepic={comment.profilepic} username={comment.username} datepubli={comment.datepubli} value={comment.value} />
+							)
+							// this.props.setContainer(<Profile />)
+						}
+						{(this.props.listComments.length > 2 ) &&
+							<p className='comments-showmore' onClick={(event) => this.props.setContainer(<CompletMessage id={this.state.id}/>)}>View all comments</p>
+						}
+						<div className='add-comment'>
+						<div className='add-comment-content'>
+							<img src={this.state.profilepic}/>
+							<textarea className='comment-textarea' rows="1" placeholder=" write a comment"></textarea>	
+							<i className="fa fa-paper-plane-o" aria-hidden="true"></i>
+						</div>
+					</div>
+					</> 
+					}
+					<div/>
+
 			</div >
 
 		)
 	}
 }
-
 export default Message;

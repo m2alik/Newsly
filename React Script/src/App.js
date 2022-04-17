@@ -1,6 +1,7 @@
 
 import './App.css';
 import MainPage from './components/MainPage/mainpage';
+import Login from "./components/Login/login.js"
 import React, { Component } from "react";
 
 
@@ -11,14 +12,15 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			page: null,
+			// page: <MainPage setPage={this.setPage} setToken={this.setToken} />,
+			page: <MainPage setPage={this.setPage} />,
 			token: ''
 		}
 		this.setPage = this.setPage.bind(this)
 	}
-	componentDidMount() {
-		this.setPage(<MainPage setPage={this.setPage} setToken={this.setToken} />)
-	}
+	// componentDidMount() {
+	// 	this.setPage)
+	// }
 	setToken = (newToken) => {
 		this.setState({ token: newToken })
 	}

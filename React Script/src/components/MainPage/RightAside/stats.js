@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Stat from './stat'
 import '../../../styles/stats.css'
 import Profile from '../Containers/profile'
-const listS = [{ name: "Followers", value: "1628" }, { name: "Following", value: "92" }, { name: "Likes", value: "12448" }, { name: "Messages", value: "23" },{ name: "Comments", value: "96" }]
+const listS = [{ name: "Followers", value: "1628" }, { name: "Following", value: "92" }, { name: "Likes", value: "12448" },{ name: "You liked", value: "96" }, { name: "Messages", value: "23" },{ name: "Comments", value: "96" }]
 class Stats extends Component {
 
 
@@ -18,8 +18,8 @@ class Stats extends Component {
 			<div className='stats-my-stats'>
 					<hr />
 					<div className='stats-listing'>
-						{listS.map((st) =>
-							<Stat name={st.name} value={st.value} setContainer={this.state.setContainer}/>
+						{listS.map((st,i) =>
+							<Stat key={i} name={st.name} value={st.value} setContainer={this.state.setContainer}/>
 						)}
 					</div>
 			</div>

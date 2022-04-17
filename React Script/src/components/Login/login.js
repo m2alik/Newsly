@@ -3,6 +3,8 @@ import logo from '../../images/2.png'
 import Register from '../Register/register'
 import axios from 'axios'
 import '../../styles/login.css'
+import MainPage from '../MainPage/mainpage';
+
 class Login extends Component {
 
 	constructor(props) {
@@ -12,13 +14,15 @@ class Login extends Component {
 			login: "",
 			password: "",
 			status: "",
-			errorMessage: ""
+			errorMessage: "",
+			id : "",
+			errorMessage:""
 		}
 
 
 	}
 	api = axios.create({
-		baseURL: "http://technoweb.lip6.fr:4443",
+		baseURL: "http://localhost:4000",
 		timeout: 1000
 	})
 
@@ -29,35 +33,45 @@ class Login extends Component {
 		this.setState({ login: e.target.value })
 	}
 	sendLoginRequest = () => {
-		this.api.post('/api/user', { parameters: { login: this.state.login, password: this.state.password }, data: {} }).then(
+		this.api.post('/api/user/login', { login: this.state.login, password: this.state.password } ).then(
 			(response) => {
-				console.log(response.data)
-				if (response.data["status"] === "error") {
-					this.setState({ error: response.data["status"] })
-					this.setState({ errorMessage: response.data["texterror"] })
-					console.log("error ! ")
-				}
+				sessionStorage.setItem('id_user',response.data.id)
+				sessionStorage.setItem("token",response.data.token)
+				this.setState({id:response.data.id})
+				this.props.setPage(<MainPage setPage={this.props.setPage}/>)		
 			}
 
-		)
+		).catch((erreur)=>{
+			console.log(erreur.response.status)
+			const err = erreur.response.status 
+			if(err === 400){
+				this.setState({errorMessage:"Missing fields"})
+			}
+			if(err === 401 ){
+				this.setState({errorMessage:"You have to register"})
+			}
+			if(err === 403){
+				this.setState({errorMessage:"Wrong password "})
+			}
+		})
 	}
 	render() {
 		return (
-
 			<div className="login-page">
 				<div className="login-logo">
 					<img className="login-logo-pic" src={logo} alt="logo" />
 				</div>
 				<div className="login-main">
+					{this.state.errorMessage ? <h3 className='error-message'>{this.state.errorMessage}</h3> : ""}
 					<h1 className='login-main-title'>Login</h1>
-					<form className="login-form" action="post">
+					<div className="login-form">
 						<div className="login-fields">
-							<input className=" login-input" type="text" name="login" placeholder="Login" onChange={() => this.updateLogin} />
-							<input className=" login-password" type="password" name="password" placeholder="Password" onChange={() => this.updatePassword} />
+							<input className=" login-input" type="text" name="login" required placeholder="Login" onChange={(e) => this.updateLogin(e)} />
+							<input className=" login-password" type="password" required name="password" placeholder="Password" onChange={(e) => this.updatePassword(e)} />
 						</div>
 						<a className="mdp-oublie" href="mdp_oublie.html">Forgot Password ?</a>
-						<input className=" login-submit-login" type="submit" value="Log In" onClick={() => this.sendLoginRequest} />
-					</form>
+						<button className=" login-submit-login" onClick={() => this.sendLoginRequest()}>Login</button>
+					</div>
 					<hr width=" 80%" />
 					<div className="login-register-div">
 						<button className="login-btn-register" onClick={() => this.props.setPage(<Register setPage={this.props.setPage} />)}>Create an account</button>

@@ -20,32 +20,48 @@ class Register extends Component {
 			email: "",
 			password: "",
 			confirmpassword: "",
-			day: "",
-			month: "",
-			error: "",
+			username : "",
+			day: "6",
+			month: "11",
+			year:"1998",
+			gender: "",
 			errorMessage: "",
 			setPage: props.setPage
 		}
 	}
 	api = axios.create({
-		baseURL: "http://technoweb.lip6.fr:4443",
+		baseURL: "http://localhost:4000",
 		timeout: 1000,
 	})
 
 
+	checkConfirmPassword = ()=>{
+		if(this.state.confirmpassword === this.state.password){
+			return true
+		}
+		this.setState({errorMessage:"You have to confirm password"})
+		return false
+	}
+
+	generateDate = (d,m,y) =>{
+		return y+"-"+m+"-"+d
+	}
+
 	sendUser = () => {
-		this.props.setPage(<Login setPage={this.props.setPage} />)
-		this.api.post('/api/user', { params: { login: this.state.email, password: this.state.password, confirmpassword: this.state.confirmpassword, firstname: this.state.firstname, lastname: this.state.lastname }, data: {} }).then(
+		if(this.checkConfirmPassword()){
+		this.api.put('/api/user', { login: this.state.username, password: this.state.password, firstname: this.state.firstname, lastname: this.state.lastname , email:this.state.email,gender:this.state.gender,dateNaissance:this.generateDate(this.state.day,this.state.month,this.state.year)} ).then(
 			(response) => {
+				this.props.setPage(<Login setPage={this.props.setPage} />)
 				console.log(response.data)
-				if (response.data["status"] === "error") {
-					this.setState({ error: response.data["status"] })
-					this.setState({ errorMessage: response.data["texterror"] })
-					console.log("error ! ")
-				}
 			}
 		)
+		.catch((err)=>{
+			if(err.response.status === 400){
+				this.setState({errorMessage:"Missing Fields"})
+			}
+		})
 	}
+}
 	// api facebook
 	// responseFacebook = (response) => {
 	// 	this.setState({accessToken : response.accessToken})
@@ -73,6 +89,7 @@ class Register extends Component {
 							<img className="register-logo-img" src={logo} alt="logo" />
 						</div>
 						<div className="register-main">
+							{this.state.errorMessage ? <h3 className='error-message'>{this.state.errorMessage}</h3> : ""}
 							<h1>Sign In</h1>
 							<div className="register-icons">
 								<a href="https://www.discord.com">
@@ -96,53 +113,54 @@ class Register extends Component {
 									<p className='register-p'>Gender</p>
 									<div className="register-genders">
 										<label htmlFor="male">Male</label>
-										<input className='register-radio' type="radio" id="male" name="gender" value="male" />
+										<input className='register-radio' type="radio" id="male" name="gender" value="male" onChange={(e) => this.setState({gender:e.target.value})} />
 									</div>
 									<div className="register-genders">
 										<label htmlFor="female">Female</label>
-										<input className='register-radio' type="radio" id="female" name="gender" value="female" />
+										<input className='register-radio' type="radio" id="female" name="gender" value="female" onChange={(e) => this.setState({gender:e.target.value})} />
 									</div>
 									<div className="register-genders">
 										<label htmlFor="notConsidered">Other</label>
-										<input className='register-radio' type="radio" id="notConsidered" name="gender" value="notConsidered" />
+										<input className='register-radio' type="radio" id="notConsidered" name="gender" value="notConsidered" onChange={(e) => this.setState({gender:e.target.value})}/>
 									</div>
 								</div>
 								<div className="register-dateOfBirth">
+									
 									<p className="register-p">Date of birth</p>
-									<select className='register-select' name="day" id="day">
-										<option name="day" htmlFor="day" value="1">1</option>
-										<option name="day" value="">2</option>
-										<option name="day" value="">3</option>
-										<option value="" name="day">4</option>
-										<option value="" name="day">5</option>
-										<option value="" name="day">6</option>
-										<option value="" name="day">7</option>
-										<option value="" name="day">8</option>
-										<option value="" name="day">9</option>
-										<option value="" name="day">10</option>
-										<option value="" name="day">11</option>
-										<option value="" name="day">12</option>
-										<option value="" name="day">13</option>
-										<option value="" name="day">14</option>
-										<option value="" name="day">15</option>
-										<option value="" name="day">16</option>
-										<option value="" name="day">17</option>
-										<option value="" name="day">18</option>
-										<option value="" name="day">19</option>
-										<option value="" name="day">20</option>
-										<option value="" name="day">21</option>
-										<option value="" name="day">22</option>
-										<option value="" name="day">23</option>
-										<option value="" name="day">24</option>
-										<option value="" name="day">25</option>
-										<option value="" name="day">26</option>
-										<option value="" name="day">27</option>
-										<option value="" name="day">28</option>
-										<option value="" name="day">29</option>
-										<option value="" name="day">30</option>
-										<option value="" name="day">31</option>
+									<select className='register-select' defaultValue="6" name="day" id="day" onChange={(e) => this.setState({day:e.target.value})}>
+										<option name="day" htmlFor="day" value="1" >1</option>
+										<option name="day" value="2">2</option>
+										<option name="day" value="3">3</option>
+										<option value="4" name="day">4</option>
+										<option value="5" name="day">5</option>
+										<option value="6" name="day" >6</option>
+										<option value="7" name="day">7</option>
+										<option value="8" name="day">8</option>
+										<option value="9" name="day">9</option>
+										<option value="10" name="day">10</option>
+										<option value="11" name="day">11</option>
+										<option value="12" name="day">12</option>
+										<option value="13" name="day">13</option>
+										<option value="14" name="day">14</option>
+										<option value="15" name="day">15</option>
+										<option value="16" name="day">16</option>
+										<option value="17" name="day">17</option>
+										<option value="18" name="day">18</option>
+										<option value="19" name="day">19</option>
+										<option value="20" name="day">20</option>
+										<option value="21" name="day">21</option>
+										<option value="22" name="day">22</option>
+										<option value="23" name="day">23</option>
+										<option value="24" name="day">24</option>
+										<option value="25" name="day">25</option>
+										<option value="26" name="day">26</option>
+										<option value="27" name="day">27</option>
+										<option value="28" name="day">28</option>
+										<option value="29" name="day">29</option>
+										<option value="30" name="day">30</option>
+										<option value="31" name="day">31</option>
 									</select>
-									<select className='register-select' name="month" id="month">
+									<select className='register-select' defaultChecked="11" name="month" id="month" onChange={(e) => this.setState({ month: e.target.value})}>
 										<option value="1">January</option>
 										<option value="2">February</option>
 										<option value="3">March</option>
@@ -156,7 +174,7 @@ class Register extends Component {
 										<option value="11">November</option>
 										<option value="12">December</option>
 									</select>
-									<select className='register-select' name="year" id="year">
+									<select className='register-select' defaultValue="1998" name="year" id="year" onChange={(e) => this.setState({ year: e.target.value})}>
 										<option value="2022">2022</option>
 										<option value="2021">2021</option>
 										<option value="2020">2020</option>
@@ -181,7 +199,7 @@ class Register extends Component {
 										<option value="2001">2001</option>
 										<option value="2000">2000</option>
 										<option value="1999">1999</option>
-										<option value="1998">1998</option>
+										<option value="1998" >1998</option>
 										<option value="1997">1997</option>
 										<option value="1996">1996</option>
 										<option value="1995">1995</option>
@@ -278,9 +296,10 @@ class Register extends Component {
 									</select>
 								</div>
 								<div className="register-loginInfos">
-									<input className="register-loginInfo" type="email" name="login" placeholder="email" onChange={(e) => this.setState({ email: e.target.value })} />
-									<input className="register-loginInfo" type="password" name="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })} />
-									<input className="register-loginInfo" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={(e) => this.setState({ confirmpassword: e.target.value })} />
+									<input className="register-loginInfo" required type="email" name="email" placeholder="email" onChange={(e) => this.setState({ email: e.target.value })} />
+									<input className="register-loginInfo" required type="text" name="username" placeholder="username" onChange={(e) => this.setState({ username: e.target.value})} />
+									<input className="register-loginInfo" required type="password" name="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })} />
+									<input className="register-loginInfo" required type="password" name="confirmPassword" placeholder="Confirm Password" onChange={(e) => this.setState({ confirmpassword: e.target.value })} />
 								</div>
 							</div>
 							<button className="register-btn-signin" onClick={() => this.sendUser()}>Sign In </button>

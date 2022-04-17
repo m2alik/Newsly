@@ -7,19 +7,83 @@ import Home from "../Containers/home"
 import Notifications from "../Containers/notifications"
 import Statistics from "../Containers/statistics"
 import '../../../styles/leftaside.css'
-import Register from '../../Register/register';
+import Register from '../../Register/register'
+import axios from 'axios'
+import { useState, useEffect } from "react";
 
 
-const user = { firstname: "Doufene", lastname: "malik", username: "Malik DF" }
+
+// const user = { firstname: "Doufene", lastname: "malik", username: "Amine YK" }
 class LeftAside extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			setPage: props.setPage,
 			setContainer: props.setContainer,
-			currentToken: 'a'
+			currentToken: '',
+			settings : false,
+			user_infos : ""
 		}
 
+	}
+
+	// componentDidMount () {
+	// 	document.addEventListener("mousedown" , (event) =>{
+	// 		if(event.target.className !== 'settings-popup-changetheme'){
+	// 		this.setState({settings:false})
+	// 	}
+	// })}
+
+
+	api = axios.create({
+		baseURL: "http://localhost:4000",
+		timeout: 1000
+	})
+	// [user_infos,setUser_infos] = useState([])
+
+
+
+	getUserConnected = () => {
+		// if(this.props.id !== undefined){
+		var url = "/api/user/"+sessionStorage.getItem("id_user")
+		this.api.get(url).then(
+			(response) => {
+				this.setState({user_infos:response.data,currentToken:sessionStorage.getItem("token")})
+				if (response.data["status"] === "error") {
+					this.setState({ error: response.data["status"] })
+					this.setState({ errorMessage: response.data["texterror"] })
+					console.log("error ! ")
+				}
+			}
+		)
+		.catch((err)=>{
+			this.setState({currentToken:""})
+		})
+	// }
+	}
+
+
+	// Elle l'est facultifive !!!
+	logOut = () => {
+		var url = "/api/user/"+sessionStorage.getItem("id_user")
+		this.api.delete(url).then(
+			(response) => {
+				sessionStorage.clear();
+				this.props.setPage(<Login setPage={this.state.setPage}/>)
+				this.setState({user_infos:response.data})
+				if (response.data["status"] === "error") {
+					this.setState({ error: response.data["status"] })
+					this.setState({ errorMessage: response.data["texterror"] })
+					console.log("error ! ")
+				}
+			}
+		)
+	}
+
+	componentDidMount = ()=>{
+		if(sessionStorage.getItem("id_user") !== null){
+			this.getUserConnected()   
+		}
 	}
 
 
@@ -28,7 +92,7 @@ class LeftAside extends Component {
 		return (
 			<div className='leftaside'>
 				<div className='logo'>
-					<img className='logo-img' src={logo} alt="Error" />
+					<img className='logo-img' src={logo} alt="Error" onClick={() => this.props.setContainer(<Home setContainer={this.props.setContainer}/>)} />
 				</div>
 
 				{this.state.currentToken === '' ?
@@ -40,25 +104,25 @@ class LeftAside extends Component {
 					</div> :
 					< div className='leftaside-connected'>
 						<ul className='leftaside-menu'>
-
 							<li >
-								<i class="fa fa-home fa-2x" aria-hidden="true"></i>
-								<p onClick={() => this.props.setContainer(<Home setContainer={this.props.setContainer} />)} >Home</p>
+								<i className="fa fa-home fa-2x" aria-hidden="true"></i>
+								<p onClick={() => this.props.setContainer(<Home setContainer={this.props.setContainer}  />)} >Home</p>
 							</li>
 							<li>
-								<i class="fa fa-user fa-2x" aria-hidden="true"></i>
-								<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} />)} >Profile</p>
+								<i className="fa fa-user fa-2x" aria-hidden="true"></i>
+								<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer}   />)} >Profile</p>
 							</li>
 							<li >
-								<i class="fa fa-bell fa-2x" aria-hidden="true"></i>
-								<p onClick={() => this.props.setContainer(<Notifications />)} >Notifications</p>
+								<i className="fa fa-bell fa-2x" aria-hidden="true"></i>
+								<p onClick={() => this.props.setContainer(<Notifications setContainer={this.props.setContainer}   />)} >Notifications</p>
 							</li>
 							<li >
-								<i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+								<i className="fa fa-cog fa-2x" aria-hidden="true"></i>
 								<p>Settings</p>
 							</li>
+							{/* <button onClick={()=> this.getUserConnected()}>IIIZZLKZBKHJGVH</button> */}
 							<li >
-								<i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i>
+								<i className="fa fa-pie-chart fa-2x" aria-hidden="true"></i>
 								<p onClick={() => this.props.setContainer(<Statistics />)} >Statistics</p>
 							</li>
 						</ul>
@@ -66,9 +130,22 @@ class LeftAside extends Component {
 
 						<div className='leftaside-my-infos'>
 							<img src={profilepic} />
-							<p>{user.username}</p>
-							<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+							<p>{this.state.user_infos.login}</p>
+							<i className="fa fa-ellipsis-h" aria-hidden="true" onClick={() => this.setState({settings:!this.state.settings})}></i>
 						</div>
+						{
+							this.state.settings && 
+							<div className='settings-popup'>
+								<div className='settings-popup-changetheme'>
+									<i className="fa fa-moon-o" aria-hidden="true"></i>
+									<p>Change Theme</p>
+								</div>
+								<div className='settings-popup-logout' onClick={() => this.logOut()}>
+									<i className="fa fa-sign-out" aria-hidden="true"></i>
+									<p>Log Out</p>
+								</div>
+							</div>
+						}
 					</div>}
 			</div>
 		)

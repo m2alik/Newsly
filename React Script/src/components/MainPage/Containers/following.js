@@ -11,7 +11,7 @@ class Following extends Component {
 			title: "Following",
 			username: this.props.username,
 			profilepic: this.props.profilepic,
-			currentToken: ''
+			currentToken: 'a'
 		}
 	}
 

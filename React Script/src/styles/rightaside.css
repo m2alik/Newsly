@@ -7,7 +7,7 @@
 .footer {
 	height: 50px;
 	position: fixed;
-	top: 600px;
+	top: 560px;
 }
 .footer p,
 a {
@@ -17,4 +17,8 @@ a {
 .footer a {
 	text-decoration: none;
 	padding: 5px;
+}
+.footer-infos{
+	display: flex;
+	justify-content: space-between;
 }

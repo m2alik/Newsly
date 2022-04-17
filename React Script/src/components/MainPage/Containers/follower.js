@@ -10,7 +10,7 @@ class Follower extends Component {
 		this.state = {
 			username: this.props.username,
 			profilepic: this.props.profilepic,
-			currentToken: ''
+			currentToken: 'a'
 		}
 	}
 

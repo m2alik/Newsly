@@ -7,8 +7,7 @@ class MainPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			setPage: props.setPage,
-			container: null
+			container: <Home setContainer={this.setContainer} id={this.props.id} />
 		}
 
 	}
@@ -17,22 +16,25 @@ class MainPage extends Component {
 		this.setState({ container: newContainer })
 	}
 
-	componentDidMount() {
-		this.setContainer(<Home setContainer={this.setContainer} />)
-	}
+	// componentDidMount() {
+	// 	this.setContainer(
+	// }
 
 
 	render() {
 		return (
 			<div className="rootpage">
-				<LeftAside setContainer={this.setContainer} setPage={this.state.setPage} />
+				<LeftAside setContainer={this.setContainer} setPage={this.props.setPage}  />
 				<div className="middlecontainer">
-					{/* <div className="middlecontainer-header">
-								<p>Home</p>
-							</div> */}
+					<div className="middlecontainer-header">
+					<div className="middlecontainer-header2">
+						{this.state.container.type.name === "CompletMessage" ? <i className="fa fa-arrow-left" aria-hidden="true" onClick={()=>this.setContainer(<Home setContainer={this.setContainer} id={this.props.id} />)}></i> : ""}
+						<p>{this.state.container.type.name}</p>
+					</div> 
+					</div> 
 					{this.state.container}
 				</div>
-				<RightAside setContainer={this.setContainer} setPage={this.state.setPage} />
+				<RightAside setContainer={this.setContainer} id={this.props.id} />
 
 			</div>
 		)

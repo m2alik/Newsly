@@ -10,7 +10,9 @@ class Statistics extends Component {
 	render() {
 		return (
 			<div>
-				<p>Stats</p>
+				<p>
+					
+				</p>
 			</div>
 
 

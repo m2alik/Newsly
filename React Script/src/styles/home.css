@@ -17,15 +17,29 @@
 }
 .home-my-infos p {
 	font-size: large;
+	font-weight: bold;
+}
+.home-status-button-emojis{
+	display: flex;
+	justify-content:  flex-end;
+	margin: 5px;
+}
+.home-status-button-emojis i{
+	margin-right: 10px;
 }
 .home-textarea {
 	width: 100%;
 	resize: none;
+	border: none;
+	background: initial;
+	border-bottom: solid 1px rgb(45, 180, 83);
+	font-size: large;
 }
 .home-textarea:focus {
-	outline-color: rgb(45, 180, 83);
+	outline: none;
+	border-bottom: solid 3px rgb(45, 180, 83);
 }
-.home-btn-publish {
+.home-btn-publish,.no-message-for-user {
 	width: 140px;
 	height: 35px;
 	box-shadow: none;
@@ -66,4 +80,11 @@
 .home-messages {
 	width: 100%;
 	margin-top: 20px;
+}
+.message_return{
+	color: rgb(1, 161, 4);
+	background-color: rgb(164, 238, 178);
+	width: 20%;
+	padding: 10px;
+	margin-bottom:10px;
 }

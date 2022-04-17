@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import pic1 from '../../../images/profilepic1.png'
 import ListSuggestion from './listsuggestion';
 import Search from './search';
 import Stats from './stats';
 import '../../../styles/rightaside.css'
+import Devloppers from '../../Devs-Informations/devloppers';
 
 
 class RightAside extends Component {
@@ -13,27 +13,28 @@ class RightAside extends Component {
 		super(props);
 		this.state = {
 			setContainer: this.props.setContainer,
-			currentToken: ''
+			currentToken: 'a'
 		}
 
 	}
 
 	render() {
-		const list = [{ username: "Amine", profilepic: pic1 }, { username: "Aya", profilepic: pic1 }, { username: "Sabrina", profilepic: pic1 }, { username: "Farid", profilepic: pic1 }]
 		return (
 
 			<div className='rightaside'>
 				<Search />
 				{this.state.currentToken &&
 					<div className='rightaside-connected'>
-						<ListSuggestion suggestions={list} />
+						<ListSuggestion setContainer={this.state.setContainer}/>
 						<Stats setContainer={this.state.setContainer} />
 					</div>}
 				<div className='footer'>
-					<a href="#">Privacy</a>
-					<a href="#">Contacts</a>
-					<a href="#">Devloppers</a>
-					<p>© 2022 Amine YK - Malik DF , SU</p>
+					<div className='footer-infos'>
+						<p>Privacy</p>
+						<p>Contacts</p>
+						{/* <p onClick={this.props.setContainer(<Devloppers />)}>Devloppers</p> */}
+					</div>
+					<p>© 2022 Amine YK - Amine YK , SU</p>
 				</div>
 
 			</div>

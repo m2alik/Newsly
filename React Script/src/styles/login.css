@@ -102,3 +102,12 @@ hr {
 	cursor: pointer;
 }
 
+.error-message{
+	color: rgb(175, 0, 0);
+	background-color: rgb(240, 174, 173);
+	width: 90%;
+	padding: 10px;
+	margin-bottom:10px;
+}
+
+

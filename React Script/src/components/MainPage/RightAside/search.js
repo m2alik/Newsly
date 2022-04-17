@@ -11,7 +11,7 @@ class Search extends Component {
 				<div className='search-fields'>
 					<div className='search-infos'>
 						<input type="text" className="input-search" placeholder='search'></input>
-						<i class="fa fa-search"></i>
+						<i className="fa fa-search"></i>
 					</div>
 					<div className='bloc-search-check'>
 						<input className="check-search" type="checkbox"></input>

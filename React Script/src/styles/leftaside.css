@@ -10,6 +10,7 @@
 .logo-img {
 	width: 50px;
 	margin: 0 auto;
+	cursor: pointer;
 }
 .leftaside,
 .leftaside-notconnected,
@@ -49,6 +50,7 @@
 }
 .leftaside-connected li {
 	width: 100%;
+	border-bottom: solid 1px #dddddd ;
 	display: flex;
 	align-items: center;
 	margin-bottom: 3px;
@@ -62,29 +64,34 @@
 	text-decoration: none;
 	font-size: large;
 }
-
+.leftaside-connected li:hover{
+	border-bottom: solid 1px #2db453 ;
+}
 .leftaside-connected ul :hover {
 	background-color: rgba(236, 235, 235, 0.5);
 	border-radius: 20px;
 	cursor: pointer;
 }
-.leftaside-my-infos p {
-	padding-left: 6px;
-}
-
-.leftaside-my-infos img {
-	width: 50px;
-	border-radius: 50%;
-}
 .leftaside-my-infos {
 	display: flex;
-	justify-content: flex-start;
 	align-items: center;
 	width: 80%;
 	border-radius: 20px;
 	padding: 10px;
 	cursor: pointer;
 	margin-bottom: 50px;
+	border-bottom: solid 1px #2db453;
+}
+.leftaside-my-infos p {
+	padding-left: 6px;
+	flex : 1;
+	
+}
+.leftaside-my-infos i {
+}
+.leftaside-my-infos img {
+	width: 50px;
+	border-radius: 50%;
 }
 .leftaside-my-infos:hover {
 	background-color: rgba(236, 235, 235, 0.8);
@@ -102,8 +109,12 @@
 .notconnected-btn-register {
 	color: rgb(45, 180, 83);
 	background-color: white;
-	border: solid 1px rgb(45, 180, 83);
+	border: solid 1px #2db453;
 }
+.leftaside-menu i {
+	padding: 10px;
+}
+
 
 .notconnected-btn-login {
 	color: white;
@@ -117,3 +128,27 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.settings-popup{
+	background-color: rgb(142, 231, 167);
+	width: 80%;
+	position: absolute;
+	top : 490px;
+	left:27px;
+	border-radius: 5px;
+	z-index: 1;
+	cursor: pointer;
+}
+.settings-popup-logout,.settings-popup-changetheme{
+	display: flex;
+	padding: 10px;
+	justify-content: center;
+}
+.settings-popup-changetheme i,.settings-popup-logout i{
+	margin-right: 10px;
+}
+
+.settings-popup-changetheme:hover,.settings-popup-logout:hover{
+	background-color: rgba(236, 235, 235, 0.5);
+}
+
+

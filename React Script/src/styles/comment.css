@@ -1,0 +1,38 @@
+.comment-content{
+	display: flex;
+	margin: 5px;
+}
+.comment-content img{
+	width: 6%;
+	height: 6%;
+	border-radius: 50%;
+	margin-right: 5px;
+}
+.comment-infos{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.comment-informations{
+	display: flex;
+	flex-direction: column;
+}
+.comment-username{
+	font-weight: bold;
+	margin-right: 6px;
+}
+.comment-datepubli{
+	font-size: 0.7em;
+}
+.comments-showmore{
+	font-size: small;
+	color: gray;
+	margin:10px;
+	margin-left : 15px;
+	align-self: flex-start;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.comment-showmore:hover{
+	text-decoration: none;
+}
