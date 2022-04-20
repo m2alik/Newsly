@@ -27,7 +27,7 @@ class Messages extends Component {
 	})
 
 	getAllMessagesForUser(){
-		const url = "api/user/messages/"+sessionStorage.getItem("id_user")
+		const url = "api/user/messages/"+this.props.id
 		this.api.get(url).then((response)=>{
 			this.setState({all_messages:response.data})
 		})
@@ -44,7 +44,7 @@ class Messages extends Component {
 		return (
 			<div>
 				{this.state.all_messages.length !== 0 ?
-					<ListMessages listM={this.state.all_messages} id_user={sessionStorage.getItem("id_user")} setContainer={this.props.setContainer}/>
+					<ListMessages listM={this.state.all_messages} id_user={this.props.id} setContainer={this.props.setContainer}/>
 				: 
 				<div className='no-message'>
 					<p>You don't publish any Newsly</p>

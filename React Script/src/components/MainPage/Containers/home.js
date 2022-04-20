@@ -123,8 +123,9 @@ class Home extends Component {
     baseURL: "http://localhost:4000",
     timeout: 1000,
   });
+
+  // renvoie toutes les infos de l'utilisateur connecté
   getUserConnected = () => {
-	// if(this.props.id !== undefined){
     var url = "/api/user/" +sessionStorage.getItem("id_user");
     this.api.get(url).then((response) => {
       this.setState({
@@ -134,13 +135,11 @@ class Home extends Component {
     })
 	.catch((err)=>{
 	  this.setState({currentToken:""})
-  })
-// }
-  };
+  })};
 
+  // insert un message dans la base de données via une requete PUT
   insertMessage = (message) => {
     var url = "/api/messages";
-
     return new Promise((resolve, reject) => {
       this.api
         .put(url, {
@@ -157,6 +156,7 @@ class Home extends Component {
     });
   };
 
+  // renvoie tous les messages de la base de données
   getAllMessages = () => {
     var url = "/api/messages";
     this.api
@@ -176,14 +176,14 @@ class Home extends Component {
 	if(this.state.cpt === 1){
 		this.getAllMessages();
 	}
-	this.setState({cpt:this.state.cpt++})
+	// this.setState({cpt:this.state.cpt++})
   };
 
   render() {
     return (
       <>
         {this.state.currentToken && (
-          <Statut insertMessage={this.insertMessage} user_infos={this.state.user_infos} />
+          <Statut insertMessage={this.insertMessage} user_infos={this.state.user_infos}/>
         )}
 
         <ListMessages listM={this.state.all_messages} id_user={sessionStorage.getItem("id_user")} setContainer={this.props.setContainer} getAllMessages={this.getAllMessages}/>
@@ -193,6 +193,10 @@ class Home extends Component {
 }
 export default Home;
 
+
+
+
+// Le Composant STATUS d'une maniere fonctionnel
 class Statut extends Component {
   constructor(props) {
     super(props);
@@ -213,7 +217,6 @@ class Statut extends Component {
   maj_returnMessage = () => {
     this.setState({ message_return: "" });
   };
- 
 
 
 

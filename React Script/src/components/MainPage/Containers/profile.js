@@ -23,7 +23,10 @@ class Profile extends Component {
 			password : "",
 			confirmpassword :"",
 			bio : "",
-			errorMessage : ""
+			errorMessage : "",
+			listFollowings : [],
+			listFollowers : [],
+			followORunfollow : ""
 		}
 	}
 
@@ -34,13 +37,15 @@ class Profile extends Component {
 	
 
 	componentDidMount() {
-		this.setProfContainer(<Messages setContainer={this.props.setContainer} />)
+		this.setProfContainer(<Messages setContainer={this.props.setContainer} id={this.props.id} />)
 		this.getUserConnected()
+		this.getFollowers_Followings()
+		this.ifFollowOrUnfollow()
 	}
 
 
 	getUserConnected = () => {
-		var url = "/api/user/"+sessionStorage.getItem("id_user")
+		var url = "/api/user/"+this.props.id
 		this.api.get(url).then(
 			(response) => {
 				this.setState({user_infos:response.data})
@@ -63,10 +68,51 @@ class Profile extends Component {
 		)
 	}
 
+	getFollowers_Followings = () =>{
+		const url = "/api/user/"+this.props.id+"/followings_followers"
+		this.api.get(url).then((response)=>{
+			this.setState({listFollowings : response.data.listFollowings})
+			this.setState({listFollowers : response.data.listFollowers})
+		})
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+
 	setProfContainer = (container) => {
 		this.setState({ profContainer: container })
 	}
 
+
+	ifFollowOrUnfollow(){
+		if(parseInt(this.props.id) === parseInt(sessionStorage.getItem("id_user"))){
+			this.setState({followORunfollow:"Edit"})
+		}else{
+
+			const url = "/api/user/"+sessionStorage.getItem("id_user")+"/followings_followers"
+			this.api.get(url).then((response)=>{
+			const liste = response.data.listFollowings
+			for(var i=0;i<liste.length;i++){
+
+				if(liste[i].id_following === this.props.id){
+					this.setState({followORunfollow:"Unfollow"})
+					return
+				}
+			}
+			this.setState({followORunfollow:"Follow"})
+
+		}
+		)
+		.catch((err)=>{
+			console.log(err)
+		})
+
+
+
+
+			
+		}
+	}
 
 
 	handleProfilePic = (e) => {
@@ -81,8 +127,6 @@ class Profile extends Component {
 	}
 
 	checkConfirmPassword = ()=>{
-		console.log(this.state.password)
-		console.log(this.state.confirmpassword)
 		if(this.state.confirmpassword === this.state.password){
 			return true
 		}
@@ -92,7 +136,7 @@ class Profile extends Component {
 
 	saveEditProfile = ()=>{
 		if(this.checkConfirmPassword()){
-			const  url = "api/user/"+sessionStorage.getItem("id_user")
+			const  url = "api/user/"+this.props.id
 			this.api.post(url,{firstname:this.state.firstname,lastname:this.state.lastname,email:this.state.email,username:this.state.username,password:this.state.password,bio:this.state.bio}).then((response)=>{
 				console.log(response.data)
 				this.setState({editdiv:false})
@@ -102,6 +146,8 @@ class Profile extends Component {
 			})
 		}
 	}
+
+
 
 	updateInputs = (nb,e,classname) =>{
 		document.getElementsByClassName(classname).value = e.target.value
@@ -135,6 +181,38 @@ class Profile extends Component {
 		}
 	}
 
+	insertFollow = () =>{
+		const url = "/api/user/"+sessionStorage.getItem("id_user")+"/followings_followers/"+this.props.id
+		this.api.put(url).then((response)=>{
+			console.log(response.data.isDone)
+			if(response.data.isDone && this.state.followORunfollow === "Follow"){
+				this.setState({followORunfollow:"Unfollow"}) 
+			}else{
+				if(response.data.isDone && this.state.followORunfollow === "Unfollow"){
+					this.setState({followORunfollow:"Follow"}) 
+				}
+			}
+			})
+		.catch((err)=>{
+			console.log(err)
+		})
+	}
+
+	editORfollowORunfollow = () =>{
+		if(this.state.followORunfollow === "Edit"){
+			this.setState({editdiv:true})
+		}else{
+			if(this.state.followORunfollow === "Follow"){
+				// au niveau base de données si l'id du nouveau utilisateur n'exsite pas dans sa liste de followers : il va l'ajouter
+				this.insertFollow()
+			}else{
+				// au niveau base de données si l'id du nouveau utilisateur exsite dans sa liste de followers : il va le retirer
+				// d'ou c'est la meme fonction qui permet d'ajouter et de retirer de la liste des followers 
+				this.insertFollow()
+			}
+		}
+	}
+
 	render() {
 		return (
 			<div className='profile'>
@@ -146,18 +224,19 @@ class Profile extends Component {
 							<label htmlFor='input-img' className='image-input'></label>
 							<img src={pic} htmlFor='input-img' />
 						</div>
-						<button className='profile-btn-edit' onClick={() => this.setState({editdiv:true})}>Edit Profile</button>
+
+						<button className='profile-btn-edit' onClick={() => this.editORfollowORunfollow()}>{this.state.followORunfollow}</button> :
 					</div>
 					<div className='profile-stats'>
 						<p className='profile-stats-name'>{this.state.user_infos.login}</p>
 						<p className='profile-stats-bio'>{this.state.user_infos.biography}</p>
 						<div className='profile-stats-follow'>
 						<div className='profile-stats-followers'>
-							<p className='profile-stats-followers-value'>123</p>
+							<p className='profile-stats-followers-value'>{this.state.listFollowers.length}</p>
 							<p className='profile-stats-followers-title'>Followers</p>
 						</div>
 						<div className='profile-stats-following'>
-							<p className='profile-stats-following-value'>81</p>
+							<p className='profile-stats-following-value'>{this.state.listFollowings.length}</p>
 							<p className='profile-stats-following-title'>Following</p>
 						</div>
 						</div>
@@ -166,13 +245,13 @@ class Profile extends Component {
 				<div className='profile-header'>
 					<ul>
 						<li >
-							<p onClick={() => this.setProfContainer(<Messages setContainer={this.props.setContainer}  />)} >Messages</p>
+							<p onClick={() => this.setProfContainer(<Messages setContainer={this.props.setContainer} id={this.props.id} />)} >Messages</p>
 						</li>
 						<li>
-							<p onClick={() => this.setProfContainer(<Followers setContainer={this.props.setContainer} />)}>Followers</p>
+							<p onClick={() => this.setProfContainer(<Followers setContainer={this.props.setContainer} listFollowers={this.state.listFollowers} />)}>Followers</p>
 						</li>
 						<li>
-							<p onClick={() => this.setProfContainer(<Followings setContainer={this.props.setContainer} />)}>Following</p>
+							<p onClick={() => this.setProfContainer(<Followings setContainer={this.props.setContainer} listFollowings={this.state.listFollowings} />)}>Following</p>
 						</li>
 					</ul>
 				</div>

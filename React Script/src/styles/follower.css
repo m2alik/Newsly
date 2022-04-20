@@ -22,3 +22,8 @@
 	background-color: rgba(250, 157, 150, 0.9);
 	color: red;
 }
+
+.follower-message-infos{
+	display: flex;
+	flex-direction: column;
+}

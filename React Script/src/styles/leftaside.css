@@ -81,11 +81,14 @@
 	cursor: pointer;
 	margin-bottom: 50px;
 	border-bottom: solid 1px #2db453;
+	justify-content: flex-start;
+}
+.left-aside-my-infos-bis{
+	flex:1;
 }
 .leftaside-my-infos p {
 	padding-left: 6px;
 	flex : 1;
-	
 }
 .leftaside-my-infos i {
 }
@@ -150,5 +153,13 @@
 .settings-popup-changetheme:hover,.settings-popup-logout:hover{
 	background-color: rgba(236, 235, 235, 0.5);
 }
+.left-aside-my-infos-bis--p {
+	font-weight: bold;
+	font-size: large;
+}
+
+
+
+
 
 

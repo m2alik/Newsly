@@ -33,7 +33,7 @@
 	background: inherit;
 	align-self: center;
 }
-.check-search {
+.check-search,.check-search_bis {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
@@ -43,6 +43,8 @@
 	width: 15px;
 	border: 1px solid #ccc;
 }
+
+
 input[type="checkbox"]:checked {
 	background: rgb(45, 180, 83);
 }

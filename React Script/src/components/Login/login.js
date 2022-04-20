@@ -32,24 +32,30 @@ class Login extends Component {
 	updateLogin = (e) => {
 		this.setState({ login: e.target.value })
 	}
+	// Requete pour Post pour tentative de connexion d'un utilisateur 
 	sendLoginRequest = () => {
 		this.api.post('/api/user/login', { login: this.state.login, password: this.state.password } ).then(
 			(response) => {
+				// une fois bien verifié , sauvgrade dans les cookies le token de connexion et l'id de l'utilisateur
 				sessionStorage.setItem('id_user',response.data.id)
 				sessionStorage.setItem("token",response.data.token)
 				this.setState({id:response.data.id})
+				// Ouvrir la page principale 
 				this.props.setPage(<MainPage setPage={this.props.setPage}/>)		
 			}
 
 		).catch((erreur)=>{
 			console.log(erreur.response.status)
 			const err = erreur.response.status 
+			// si status 400 renvoyé
 			if(err === 400){
 				this.setState({errorMessage:"Missing fields"})
 			}
+			// si status 401 renvoyé
 			if(err === 401 ){
 				this.setState({errorMessage:"You have to register"})
 			}
+			// si status 403 renvoyé
 			if(err === 403){
 				this.setState({errorMessage:"Wrong password "})
 			}

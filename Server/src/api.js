@@ -216,6 +216,90 @@ function init(db) {
 		})
 	})
 
+	router.post("/messages/:id_message(\\d+)/comments",(req,res)=>{
+		const {id_commenter,value_comment} = req.body
+		messages.insertCommentMessage(parseInt(req.params.id_message),id_commenter,value_comment).then((nbComments)=>{
+			res.status(200).send({nb_comments:nbComments})
+		})
+		.catch((err)=>{
+			res.status(400).send("Error")
+		})
+	})
+
+	router.get("/messages/:id_message(\\d+)/comments",(req,res)=>{
+		messages.getAllComments(parseInt(req.params.id_message)).then((listComments)=>{
+			res.status(200).send({listComments:listComments})
+		})
+	})
+
+
+	router.put("/messages/:id_message(\\d+)/retweets",(req,res)=>{
+		const {id_user} = req.body
+		messages.retweetMessage(parseInt(req.params.id_message),id_user).then((bool)=>{
+				if(bool === 0){
+					res.status(401).send({message:bool})
+				}else{
+					if(bool == 1){
+						res.status(400).send({message:bool})
+					}else{
+						res.status(200).send({message:bool})
+					}
+				}
+			
+		})
+		.catch((err)=>{
+			res.status(500).send("Error")
+		})
+	})
+
+
+	router.get("/messages/search/:keyword",(req,res)=>{
+		messages.searchMessage(req.params.keyword).then((messages)=>{
+			res.status(200).send({messages:messages})
+		})
+		.catch(()=>{
+			res.status(500).send("Error")
+		})
+	})
+
+
+	router.put("/user/:id_user(\\d+)/followings_followers/:id_ami(\\d+)",(req,res)=>{
+		users.insertUserFollow(parseInt(req.params.id_user),parseInt(req.params.id_ami)).then((bool)=>{
+			res.status(200).send({isDone:bool})
+		})
+		.catch(()=>{
+			res.status(500).send("Error")
+		})
+	})
+
+	router.get("/user/:id_user(\\d+)/followers/messages",(req,res)=>{
+		users.getFollowersMessages(parseInt(req.params.id_user)).then((messages)=>{
+			res.status.send({messages:messages})
+		})
+		.catch((err)=>{
+			res.status(500).send("Error")
+		})
+	})
+
+	router.get("/user/:id_user(\\d+)/followings_followers",(req,res)=>{
+		users.getFollowersFollowings(parseInt(req.params.id_user)).then((lists)=>{
+			res.status(200).send({listFollowers:lists[0],listFollowings:lists[1]})
+		})
+		.catch((err)=>{
+			res.status(500).send("Error")
+		})
+	})
+
+	router.get("/user/:id_user(\\d)/suggestions",(req,res)=>{
+		users.getSuggestions(parseInt(req.params.id_user)).then((listSuggestions)=>{
+			res.status(200).send({listSuggestions:listSuggestions})
+		})
+		.catch(()=>{
+			res.status(500).send("Error")
+		})
+	})
+
+
     return router;
 }
 exports.default = init;

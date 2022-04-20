@@ -5,7 +5,7 @@ import profilepic from '../../../images/amine1.JPG'
 import Profile from "../Containers/profile"
 import Home from "../Containers/home"
 import Notifications from "../Containers/notifications"
-import Statistics from "../Containers/statistics"
+import SearchComponent from "../Containers/searchComponent"
 import '../../../styles/leftaside.css'
 import Register from '../../Register/register'
 import axios from 'axios'
@@ -88,6 +88,8 @@ class LeftAside extends Component {
 
 
 
+
+
 	render() {
 		return (
 			<div className='leftaside'>
@@ -110,7 +112,7 @@ class LeftAside extends Component {
 							</li>
 							<li>
 								<i className="fa fa-user fa-2x" aria-hidden="true"></i>
-								<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer}   />)} >Profile</p>
+								<p onClick={() => this.props.setContainer(<Profile setContainer={this.props.setContainer} id={sessionStorage.getItem("id_user")}    />)} >Profile</p>
 							</li>
 							<li >
 								<i className="fa fa-bell fa-2x" aria-hidden="true"></i>
@@ -120,17 +122,19 @@ class LeftAside extends Component {
 								<i className="fa fa-cog fa-2x" aria-hidden="true"></i>
 								<p>Settings</p>
 							</li>
-							{/* <button onClick={()=> this.getUserConnected()}>IIIZZLKZBKHJGVH</button> */}
 							<li >
-								<i className="fa fa-pie-chart fa-2x" aria-hidden="true"></i>
-								<p onClick={() => this.props.setContainer(<Statistics />)} >Statistics</p>
+							<i className="fa fa-search fa-2x" aria-hidden="true"></i>
+								<p onClick={() => this.props.setContainer(<SearchComponent setContainer={this.props.setContainer} />)} >Search</p>
 							</li>
 						</ul>
 
 
 						<div className='leftaside-my-infos'>
-							<img src={profilepic} />
-							<p>{this.state.user_infos.login}</p>
+							<img src={profilepic} onClick ={() =>  this.props.setContainer(<Profile setContainer={this.props.setContainer()} id={sessionStorage.getItem("id_user")}/>)}/>
+							<div className='left-aside-my-infos-bis'>
+								<p className='left-aside-my-infos-bis--p'>{this.state.user_infos.login}</p>
+								<p className='left-aside-my-infos-bis-p'>{this.state.user_infos.firstname+" "+this.state.user_infos.lastname}</p>
+							</div>
 							<i className="fa fa-ellipsis-h" aria-hidden="true" onClick={() => this.setState({settings:!this.state.settings})}></i>
 						</div>
 						{

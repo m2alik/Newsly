@@ -4,6 +4,7 @@ import Search from './search';
 import Stats from './stats';
 import '../../../styles/rightaside.css'
 import Devloppers from '../../Devs-Informations/devloppers';
+import axios from 'axios';
 
 
 class RightAside extends Component {
@@ -13,16 +14,48 @@ class RightAside extends Component {
 		super(props);
 		this.state = {
 			setContainer: this.props.setContainer,
-			currentToken: 'a'
+			currentToken: ''
 		}
 
 	}
 
+
+	api = axios.create({
+		baseURL: "http://localhost:4000",
+		timeout: 1000
+	})
+
+
+	getUserConnected = () => {
+		// if(this.props.id !== undefined){
+		var url = "/api/user/"+sessionStorage.getItem("id_user")
+		this.api.get(url).then(
+			(response) => {
+				this.setState({user_infos:response.data,currentToken:sessionStorage.getItem("token")})
+				if (response.data["status"] === "error") {
+					this.setState({ error: response.data["status"] })
+					this.setState({ errorMessage: response.data["texterror"] })
+					console.log("error ! ")
+				}
+			}
+		)
+		.catch((err)=>{
+			this.setState({currentToken:""})
+		})
+	// }
+	}
+
+	componentDidMount = ()=>{
+		if(sessionStorage.getItem("id_user") !== null){
+			this.getUserConnected()   
+		}
+	}
+
 	render() {
 		return (
-
+			// this.state.currentToken !== '' &&
 			<div className='rightaside'>
-				<Search />
+				<Search setContainer={this.props.setContainer} />
 				{this.state.currentToken &&
 					<div className='rightaside-connected'>
 						<ListSuggestion setContainer={this.state.setContainer}/>
@@ -38,7 +71,7 @@ class RightAside extends Component {
 				</div>
 
 			</div>
-		)
+				)
 	}
 }
 

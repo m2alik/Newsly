@@ -144,3 +144,9 @@
 	outline: none;
 	border-color: rgb(45, 180, 83);
 }
+.retweeted-from{
+	font-size: smaller;
+	color: rgb(45, 180, 83);
+	width : 100%;
+	padding : 10px;
+}

@@ -26,6 +26,8 @@ class CompletMessage extends Component {
 		timeout: 1000,
 	  });
 
+
+	// renvoie le message complet via son ID_message
 	getMessage = ()=>{
 		const url = "api/messages/"+this.props.id
 		this.api.get(url).then((response)=>{
@@ -33,6 +35,7 @@ class CompletMessage extends Component {
 		})
 	}
 
+	// renvoie le message a chaque fois
 	componentDidMount = ()=>{
 		this.getMessage()
 	}
@@ -42,7 +45,7 @@ class CompletMessage extends Component {
 		<div>
 			{/* <p>{this.state.message_infos}</p> */}
 			{this.state.isLoad !== "" ?
-				<Message author={this.state.message_infos.id_author} id_user={this.props.id_user} profilepic={mess.profilepic} value={this.state.message_infos.value_message} datePubli={this.state.message_infos.date_publi} timePublic={this.state.message_infos.time_publi} nblikes={this.state.message_infos.nb_likes} nbcomments={this.state.message_infos.nbcomments} image={this.state.message_infos.image} id={this.props.id} setContainer={this.props.setContainer} listComments={listComments}  />
+				<Message author={this.state.message_infos.id_author} id_user={this.props.id_user} profilepic={mess.profilepic} value={this.state.message_infos.value_message} datePubli={this.state.message_infos.date_publi} timePublic={this.state.message_infos.time_publi} nblikes={this.state.message_infos.nb_likes} retweetedFrom={this.state.message_infos.retweetedFrom} nbcomments={this.state.message_infos.nbcomments} id_message_original={this.state.message_infos.id_message_original} image={this.state.message_infos.image} id={this.props.id} ifComplete={1} setContainer={this.props.setContainer} listComments={this.props.listComments}/>
 			:<p>Unloaded</p>}
 			</div>
 		)
